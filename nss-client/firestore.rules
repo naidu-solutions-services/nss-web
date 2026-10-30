@@ -2,16 +2,53 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Public Data: Readable by all nodes, writable strictly by authenticated operators
+    // Existing Rule: Public Data
     match /artifacts/{appId}/public/data/{collectionName}/{docId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
     
-    // Private User Data: Strictly isolated to the specific authenticated operator's UID
+    // Existing Rule: Private User Data
     match /artifacts/{appId}/users/{userId}/{collectionName}/{docId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+    // New Strict Multitenancy Rules for Factory Data
+    function isAuthenticated() {
+      return request.auth != null;
+    }
     
+    function isOrgMember(orgId) {
+      return isAuthenticated() && (
+        request.auth.token.organizationId == orgId || 
+        resource.data.organizationId == orgId ||
+        request.resource.data.organizationId == orgId
+      );
+    }
+
+    match /organizations/{orgId} {
+      allow read: if isAuthenticated();
+      allow write: if isOrgMember(orgId);
+    }
+
+    match /machines/{machineId} {
+      allow read, write: if isAuthenticated() && isOrgMember(resource.data.organizationId);
+      allow create: if isAuthenticated();
+    }
+
+    match /breakdowns/{breakdownId} {
+      allow read, write: if isAuthenticated() && isOrgMember(resource.data.organizationId);
+      allow create: if isAuthenticated();
+    }
+
+    match /productionRecords/{recordId} {
+      allow read, write: if isAuthenticated() && isOrgMember(resource.data.organizationId);
+      allow create: if isAuthenticated();
+    }
+
+    match /spareParts/{partId} {
+      allow read, write: if isAuthenticated() && isOrgMember(resource.data.organizationId);
+      allow create: if isAuthenticated();
+    }
   }
 }
