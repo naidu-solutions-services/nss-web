@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "nss-mw"
+  },
+  "targets": {
+    "nss-mw": {
+      "hosting": {
+        "main": [
+          "nss"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
