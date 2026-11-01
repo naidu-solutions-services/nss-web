@@ -19,8 +19,8 @@ import { Contact } from './pages/public/Contact';
 
 // Note: Ensure you have basic Login and Dashboard components created in your pages folder.
 // If they do not exist yet, create simple placeholder files for them to prevent import errors.
-// import { Login } from './pages/auth/Login'; 
-// import { Dashboard } from './pages/secure/Dashboard'; 
+import { Login } from './pages/auth/Login'; 
+import { Dashboard } from './pages/secure/Dashboard'; 
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
