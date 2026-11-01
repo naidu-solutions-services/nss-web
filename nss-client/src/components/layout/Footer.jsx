@@ -64,7 +64,7 @@ export const Footer = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-10">
             <div className="flex flex-col space-y-5">
-              <img src="https://i.postimg.cc/QMHqk6NF/ft.png" alt="NSS Logo" className="h-14 w-auto bg-white p-2 rounded-sm object-contain self-start" />
+              <img src="https://i.postimg.cc/QMHqk6NF/ft.png" alt="NSS Logo" className="h-14 w-auto p-2 rounded-sm object-contain self-start" />
               <div>
                 <p className="text-sm font-bold mb-3">{t.connect}</p>
                 <div className="flex space-x-4">

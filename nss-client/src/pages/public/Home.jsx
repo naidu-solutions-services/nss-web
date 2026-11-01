@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ChevronLeft, ChevronRight, CheckSquare, Users, Handshake, AlertCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
@@ -22,16 +22,33 @@ const homeTranslations = {
   bho: { hero: "फैक्टरी मशीन अउरी सेवा खातिर पूरा समाधान।", legacy: "बढ़िया काम के पहचान", years: "31+", yearsText: "भरोसा के साल", factories: "6,000+", factoriesText: "चालू कारखाना", machines: "100,000+", machinesText: "ठीक कइल मशीन", values: "हमनी के बिचार", val1: "बढ़िया काम", val2: "टीम के काम", val3: "सच्चा साथी", solutions: "सेवा", sol1: "क्रेन के काम", sol2: "छत के मशीन", sol3: "फैक्टरी ऑटोमेशन", vers: "सब काम में माहिर", versSub: "हमनी के हर तरह के फैक्टरी काम में मदद करीले।", explore: "अउरी जानीं", projects: "हमनी के काम", viewAll: "सब काम देखीं", updates: "नया खबर", readAll: "सब खबर पढ़ीं", reportTitle: "मशीन के खराबी बताईं", fName: "फैक्टरी के नाम", fPhone: "फोन नंबर", fIssue: "का दिक्कत बा?", submit: "भेजीं", success: "भेज दिहल गइल।" }
 };
 
+const slideImages = [
+  "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&q=80&w=2000",
+  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000",
+  "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=2000"
+];
+
 export const Home = () => {
   const [language, setLanguage] = useState(localStorage.getItem('nss_lang') || 'en');
   const [formState, setFormState] = useState({ name: '', phone: '', issue: '' });
   const [status, setStatus] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const handleLangChange = (e) => setLanguage(e.detail);
     window.addEventListener('languageChanged', handleLangChange);
     return () => window.removeEventListener('languageChanged', handleLangChange);
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slideImages.length) % slideImages.length);
 
   const t = homeTranslations[language] || homeTranslations['en'];
 
@@ -55,27 +72,48 @@ export const Home = () => {
   return (
     <div className="w-full bg-gray-50 overflow-hidden font-sans text-gray-900">
       
-      {/* Desktop Hero Section: Full width background, overlay text, arrows */}
+      {/* Desktop Hero Section: Image Slider */}
       <section className="hidden md:flex relative w-full h-[60vh] bg-[#0035A0] items-center px-12 overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-10 z-10"></div>
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={currentSlide}
+            src={slideImages[currentSlide]}
+            alt="Factory Infrastructure"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 0.6, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black opacity-30 z-10"></div>
         <div className="relative z-20 w-full max-w-7xl mx-auto flex justify-between items-center">
-          <button className="bg-white/20 p-2 hover:bg-white/40 transition"><ChevronLeft className="text-white h-8 w-8" /></button>
+          <button onClick={prevSlide} className="bg-white/20 p-2 hover:bg-white/40 transition z-30"><ChevronLeft className="text-white h-8 w-8" /></button>
           <div className="flex-1 px-12">
-            <h1 className="text-white text-5xl font-bold leading-tight max-w-3xl">{t.hero}</h1>
+            <motion.h1 
+              key={t.hero}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="text-white text-5xl font-bold leading-tight max-w-3xl"
+            >
+              {t.hero}
+            </motion.h1>
           </div>
-          <button className="bg-white/20 p-2 hover:bg-white/40 transition"><ChevronRight className="text-white h-8 w-8" /></button>
+          <button onClick={nextSlide} className="bg-white/20 p-2 hover:bg-white/40 transition z-30"><ChevronRight className="text-white h-8 w-8" /></button>
         </div>
       </section>
 
-      {/* Mobile Hero Section: Heavy left-aligned typography on top, responsive block below */}
+      {/* Mobile Hero Section */}
       <section className="md:hidden flex flex-col pt-8 bg-white">
         <div className="px-4 mb-6">
           <h1 className="text-[32px] leading-tight font-bold text-gray-900">{t.hero}</h1>
         </div>
         <div className="w-full h-64 bg-[#0035A0] flex items-center justify-center relative overflow-hidden">
-           <div className="absolute inset-0 bg-black opacity-10"></div>
-           <div className="absolute inset-y-0 right-4 flex items-center">
-             <button className="bg-white/30 p-2 rounded-sm"><ChevronRight className="text-white h-6 w-6" /></button>
+           <img src={slideImages[currentSlide]} alt="Factory Work" className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" />
+           <div className="absolute inset-0 bg-black opacity-20"></div>
+           <div className="absolute inset-y-0 right-4 flex items-center z-20">
+             <button onClick={nextSlide} className="bg-white/30 p-2 rounded-sm"><ChevronRight className="text-white h-6 w-6" /></button>
            </div>
         </div>
       </section>
@@ -83,7 +121,6 @@ export const Home = () => {
       {/* Legacy & Stats Section */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Desktop Layout */}
           <div className="hidden md:flex justify-between items-start gap-12">
             <div className="w-1/3">
               <h2 className="text-4xl font-bold mb-6">{t.legacy}</h2>
@@ -107,11 +144,11 @@ export const Home = () => {
             </div>
           </div>
 
-          {/* Mobile Stacked Layout */}
           <div className="md:hidden flex flex-col">
             <h2 className="text-3xl font-bold mb-8">{t.legacy}</h2>
             <div className="w-full h-48 bg-gray-200 mb-8 overflow-hidden relative flex items-center">
-              <div className="w-full h-full bg-[#0035A0] opacity-10"></div>
+              <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800" alt="Legacy" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-[#0035A0] opacity-40"></div>
               <div className="absolute bottom-2 w-full flex justify-center space-x-2">
                 <div className="h-2 w-2 bg-gray-400 rounded-full"></div>
                 <div className="h-2 w-2 bg-white rounded-full"></div>
@@ -147,19 +184,19 @@ export const Home = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-             <div className="bg-white p-6 border border-gray-200 flex flex-col items-start shadow-sm">
+             <div className="bg-white p-6 border border-gray-200 flex flex-col items-start shadow-sm hover:shadow-md transition">
                 <div className="w-20 h-20 bg-[#0035A0] rounded-sm flex items-center justify-center mb-6">
                   <CheckSquare className="text-white h-10 w-10" />
                 </div>
                 <h4 className="text-xl font-bold">{t.val1}</h4>
              </div>
-             <div className="bg-white p-6 border border-gray-200 flex flex-col items-start shadow-sm">
+             <div className="bg-white p-6 border border-gray-200 flex flex-col items-start shadow-sm hover:shadow-md transition">
                 <div className="w-20 h-20 bg-[#0035A0] rounded-sm flex items-center justify-center mb-6">
                   <Users className="text-white h-10 w-10" />
                 </div>
                 <h4 className="text-xl font-bold">{t.val2}</h4>
              </div>
-             <div className="bg-white p-6 border border-gray-200 flex flex-col items-start shadow-sm">
+             <div className="bg-white p-6 border border-gray-200 flex flex-col items-start shadow-sm hover:shadow-md transition">
                 <div className="w-20 h-20 bg-[#0035A0] rounded-sm flex items-center justify-center mb-6">
                   <Handshake className="text-white h-10 w-10" />
                 </div>
@@ -181,30 +218,32 @@ export const Home = () => {
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Tall Image Cards with white box at bottom */}
               <div className="relative h-96 bg-gray-200 border border-gray-200 overflow-hidden group">
-                 <div className="absolute inset-0 bg-[#0035A0] opacity-5"></div>
+                 <img src="https://www.technomaxme.com/wp-content/uploads/2021/11/eot-crane.webp?auto=format&fit=crop&q=80&w=800" alt={t.sol1} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                 <div className="absolute inset-0 bg-[#0035A0] opacity-20"></div>
                  <div className="absolute bottom-0 left-0 right-0 bg-white p-6">
                     <h4 className="text-lg font-bold mb-4">{t.sol1}</h4>
-                    <Link to="/services" className="text-[#0035A0] font-bold flex items-center hover:underline text-sm">
+                    <Link to="/eot-cranes" className="text-[#0035A0] font-bold flex items-center hover:underline text-sm">
                        {t.explore} <ArrowUpRight className="ml-1 h-4 w-4" />
                     </Link>
                  </div>
               </div>
               <div className="relative h-96 bg-gray-200 border border-gray-200 overflow-hidden group">
-                 <div className="absolute inset-0 bg-[#0035A0] opacity-5"></div>
+                 <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSvIazJJC5epTGTe8DX1-XiEBjXbIlJbSS4Gw2jF0ceUlA0GlcwvbhIo4m64wAFAPf5pTErg9Y7dFDxseLraEvOw0xukV7jJJ7SuydK4wGb&usqp=CAc?auto=format&fit=crop&q=80&w=800" alt={t.sol2} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                 <div className="absolute inset-0 bg-[#0035A0] opacity-20"></div>
                  <div className="absolute bottom-0 left-0 right-0 bg-white p-6">
                     <h4 className="text-lg font-bold mb-4">{t.sol2}</h4>
-                    <Link to="/services" className="text-[#0035A0] font-bold flex items-center hover:underline text-sm">
+                    <Link to="/roof-profile" className="text-[#0035A0] font-bold flex items-center hover:underline text-sm">
                        {t.explore} <ArrowUpRight className="ml-1 h-4 w-4" />
                     </Link>
                  </div>
               </div>
               <div className="relative h-96 bg-gray-200 border border-gray-200 overflow-hidden group">
-                 <div className="absolute inset-0 bg-[#0035A0] opacity-5"></div>
+                 <img src="https://www.analog.com/en/_/media/project/analogweb/analogweb/solutions-overview/industry-overview-images/industrial-automation.jpg?rev=fdfa1709bb424bc2b3ea10b7825abcd9&sc_lang=en&la=en&h=498&w=2560&hash=7BD8254A3F5A7B67680CE596A2BDBB08?auto=format&fit=crop&q=80&w=800" alt={t.sol3} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                 <div className="absolute inset-0 bg-[#0035A0] opacity-20"></div>
                  <div className="absolute bottom-0 left-0 right-0 bg-white p-6">
                     <h4 className="text-lg font-bold mb-4">{t.sol3}</h4>
-                    <Link to="/services" className="text-[#0035A0] font-bold flex items-center hover:underline text-sm">
+                    <Link to="/automation" className="text-[#0035A0] font-bold flex items-center hover:underline text-sm">
                        {t.explore} <ArrowUpRight className="ml-1 h-4 w-4" />
                     </Link>
                  </div>
@@ -221,12 +260,14 @@ export const Home = () => {
            </div>
            
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="h-72 bg-gray-200 border border-gray-200 relative p-6 flex flex-col justify-end">
-                 <div className="absolute inset-0 bg-[#0035A0] opacity-5"></div>
+              <div className="h-72 bg-gray-200 border border-gray-200 relative p-6 flex flex-col justify-end group overflow-hidden">
+                 <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800" alt="Project 1" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0035A0]/80 to-transparent"></div>
                  <h4 className="relative z-10 text-xl font-bold bg-white p-4 w-3/4">{t.sol1}</h4>
               </div>
-              <div className="h-72 bg-gray-200 border border-gray-200 relative p-6 flex flex-col justify-end">
-                 <div className="absolute inset-0 bg-[#0035A0] opacity-5"></div>
+              <div className="h-72 bg-gray-200 border border-gray-200 relative p-6 flex flex-col justify-end group overflow-hidden">
+                 <img src="https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?auto=format&fit=crop&q=80&w=800" alt="Project 2" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0035A0]/80 to-transparent"></div>
                  <h4 className="relative z-10 text-xl font-bold bg-white p-4 w-3/4">{t.sol3}</h4>
               </div>
            </div>
@@ -247,7 +288,7 @@ export const Home = () => {
            <div>
              <div className="flex justify-between items-center mb-8">
                <h2 className="text-3xl font-bold">{t.updates}</h2>
-               <Link to="/news" className="text-[#0035A0] font-bold hidden md:flex items-center hover:underline text-sm">
+               <Link to="/knowledge" className="text-[#0035A0] font-bold hidden md:flex items-center hover:underline text-sm">
                   {t.readAll} <ArrowUpRight className="ml-1 h-4 w-4" />
                </Link>
              </div>
@@ -282,10 +323,10 @@ export const Home = () => {
                    <label className="block text-sm font-bold mb-2">{t.fIssue}</label>
                    <textarea required rows="3" value={formState.issue} onChange={(e) => setFormState({...formState, issue: e.target.value})} className="w-full p-3 border border-gray-300 outline-none focus:border-[#0035A0]"></textarea>
                 </div>
-                <button type="submit" className="bg-[#0035A0] text-white font-bold py-3 hover:bg-blue-800 transition text-lg mt-2">
+                <button type="submit" className="bg-[#0035A0] text-white font-bold py-3 hover:bg-blue-800 transition text-lg mt-2 flex justify-center items-center">
                    {t.submit}
                 </button>
-                {status && <p className="text-green-700 font-bold text-sm mt-2">{status}</p>}
+                {status && <p className="text-green-700 font-bold text-sm mt-2 text-center">{status}</p>}
              </form>
            </div>
         </div>
