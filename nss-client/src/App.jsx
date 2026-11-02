@@ -11,6 +11,7 @@ import { FloatingChat } from './components/ui/FloatingChat';
 // Public Pages
 import { Home } from './pages/public/Home';
 import { Services } from './pages/public/Services';
+import { About } from './pages/public/About';
 import { EotCranes } from './pages/public/EotCranes';
 import { RoofProfile } from './pages/public/RoofProfile';
 import { Automation } from './pages/public/Automation';
@@ -51,6 +52,7 @@ export default function App() {
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/eot-cranes" element={<EotCranes />} />
               <Route path="/roof-profile" element={<RoofProfile />} />

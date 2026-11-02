@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { db } from '../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
@@ -52,76 +53,110 @@ export const Knowledge = () => {
   };
 
   return (
-    <div className="w-full bg-white font-sans text-gray-900 pb-16 pt-10">
+    <div className="w-full bg-white font-sans text-gray-900 pb-20 pt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="mb-12 border-b border-gray-200 pb-6">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tight leading-tight">
+        {/* Header Section matching reference typography */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-12 border-b border-gray-200 pb-8"
+        >
+          <h1 className="text-5xl md:text-7xl font-black text-gray-900 tracking-tight leading-tight">
             {t.title}
           </h1>
-          <p className="text-lg text-gray-700 mt-4 font-semibold">{t.subtitle}</p>
-        </div>
+          <p className="text-xl text-gray-600 mt-6 font-semibold max-w-3xl leading-relaxed">{t.subtitle}</p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          <div className="flex flex-col space-y-6">
+          {/* Dynamic Image Grid Section (Left - 8 columns) */}
+          <div className="lg:col-span-8 flex flex-col space-y-10">
             
-            <div className="bg-gray-50 border border-gray-200 p-6 flex flex-col justify-between items-start shadow-sm transition-shadow hover:shadow-md">
-              <div>
-                <h3 className="font-bold text-2xl text-gray-900 mb-3">{t.g1Title}</h3>
-                <p className="text-base text-gray-700 leading-relaxed font-semibold">{t.g1Desc}</p>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white group cursor-pointer"
+            >
+              <div className="relative h-64 md:h-80 w-full overflow-hidden mb-6 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1580983538356-8367a731d102?auto=format&fit=crop&q=80&w=1000" alt="Crane" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
               </div>
-              <button className="text-[#0035A0] font-bold inline-flex items-center mt-6 hover:underline text-lg">
+              <h3 className="font-bold text-3xl text-gray-900 mb-3">{t.g1Title}</h3>
+              <p className="text-lg text-gray-600 leading-relaxed font-medium mb-4">{t.g1Desc}</p>
+              <button className="text-[#0035A0] font-bold inline-flex items-center hover:underline text-lg">
                 {t.readMore} <ArrowUpRight className="ml-1 h-6 w-6 stroke-[3]" />
               </button>
-            </div>
+            </motion.div>
 
-            <div className="bg-gray-50 border border-gray-200 p-6 flex flex-col justify-between items-start shadow-sm transition-shadow hover:shadow-md">
-              <div>
-                <h3 className="font-bold text-2xl text-gray-900 mb-3">{t.g2Title}</h3>
-                <p className="text-base text-gray-700 leading-relaxed font-semibold">{t.g2Desc}</p>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white group cursor-pointer"
+            >
+              <div className="relative h-64 md:h-80 w-full overflow-hidden mb-6 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1605273397334-08ba1c8d2077?auto=format&fit=crop&q=80&w=1000" alt="Roof Machine" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
               </div>
-              <button className="text-[#0035A0] font-bold inline-flex items-center mt-6 hover:underline text-lg">
+              <h3 className="font-bold text-3xl text-gray-900 mb-3">{t.g2Title}</h3>
+              <p className="text-lg text-gray-600 leading-relaxed font-medium mb-4">{t.g2Desc}</p>
+              <button className="text-[#0035A0] font-bold inline-flex items-center hover:underline text-lg">
                 {t.readMore} <ArrowUpRight className="ml-1 h-6 w-6 stroke-[3]" />
               </button>
-            </div>
+            </motion.div>
 
-            <div className="bg-gray-50 border border-gray-200 p-6 flex flex-col justify-between items-start shadow-sm transition-shadow hover:shadow-md">
-              <div>
-                <h3 className="font-bold text-2xl text-gray-900 mb-3">{t.g3Title}</h3>
-                <p className="text-base text-gray-700 leading-relaxed font-semibold">{t.g3Desc}</p>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-white group cursor-pointer"
+            >
+              <div className="relative h-64 md:h-80 w-full overflow-hidden mb-6 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=1000" alt="Panel Wiring" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
               </div>
-              <button className="text-[#0035A0] font-bold inline-flex items-center mt-6 hover:underline text-lg">
+              <h3 className="font-bold text-3xl text-gray-900 mb-3">{t.g3Title}</h3>
+              <p className="text-lg text-gray-600 leading-relaxed font-medium mb-4">{t.g3Desc}</p>
+              <button className="text-[#0035A0] font-bold inline-flex items-center hover:underline text-lg">
                 {t.readMore} <ArrowUpRight className="ml-1 h-6 w-6 stroke-[3]" />
               </button>
-            </div>
+            </motion.div>
 
           </div>
 
-          <div className="bg-white border border-gray-200 p-8 shadow-sm h-fit sticky top-24">
-            <h3 className="text-3xl font-black mb-6 text-gray-900">{t.formTitle}</h3>
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-              <div>
-                <label className="block text-sm font-bold mb-2 text-gray-900">{t.fName}</label>
-                <input type="text" required value={formState.name} onChange={(e) => setFormState({...formState, name: e.target.value})} className="w-full p-3 border border-gray-300 outline-none focus:border-[#0035A0] bg-gray-50" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold mb-2 text-gray-900">{t.fPhone}</label>
-                <input type="tel" required value={formState.phone} onChange={(e) => setFormState({...formState, phone: e.target.value})} className="w-full p-3 border border-gray-300 outline-none focus:border-[#0035A0] bg-gray-50" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold mb-2 text-gray-900">{t.fTopic}</label>
-                <input type="text" required value={formState.topic} onChange={(e) => setFormState({...formState, topic: e.target.value})} className="w-full p-3 border border-gray-300 outline-none focus:border-[#0035A0] bg-gray-50" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold mb-2 text-gray-900">{t.fIssue}</label>
-                <textarea required rows="4" value={formState.issue} onChange={(e) => setFormState({...formState, issue: e.target.value})} className="w-full p-3 border border-gray-300 outline-none focus:border-[#0035A0] bg-gray-50"></textarea>
-              </div>
-              <button type="submit" className="bg-[#0035A0] text-white font-black py-4 hover:bg-blue-900 transition text-lg mt-4 flex items-center justify-center">
-                {t.submit} <ArrowUpRight className="ml-2 h-6 w-6 stroke-[3]" />
-              </button>
-              {status && <p className="text-green-700 font-bold text-sm mt-2">{status}</p>}
-            </form>
+          {/* Sticky Consultation Contact Section (Right - 4 columns) matching reference layout */}
+          <div className="lg:col-span-4 relative">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-gray-50 border border-gray-200 p-8 shadow-sm h-fit sticky top-24"
+            >
+              <h3 className="text-3xl font-black mb-2 text-[#0035A0]">{t.formTitle}</h3>
+              <p className="text-sm text-gray-600 font-semibold mb-8 border-b border-gray-200 pb-4">
+                 Get in touch for more information on our products and services.
+              </p>
+              <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
+                <div>
+                  <label className="block text-sm font-bold mb-2 text-gray-900">{t.fName}</label>
+                  <input type="text" required value={formState.name} onChange={(e) => setFormState({...formState, name: e.target.value})} className="w-full p-4 border border-gray-300 outline-none focus:border-[#0035A0] bg-white transition" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold mb-2 text-gray-900">{t.fPhone}</label>
+                  <input type="tel" required value={formState.phone} onChange={(e) => setFormState({...formState, phone: e.target.value})} className="w-full p-4 border border-gray-300 outline-none focus:border-[#0035A0] bg-white transition" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold mb-2 text-gray-900">{t.fTopic}</label>
+                  <input type="text" required value={formState.topic} onChange={(e) => setFormState({...formState, topic: e.target.value})} className="w-full p-4 border border-gray-300 outline-none focus:border-[#0035A0] bg-white transition" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold mb-2 text-gray-900">{t.fIssue}</label>
+                  <textarea required rows="4" value={formState.issue} onChange={(e) => setFormState({...formState, issue: e.target.value})} className="w-full p-4 border border-gray-300 outline-none focus:border-[#0035A0] bg-white transition"></textarea>
+                </div>
+                <button type="submit" className="bg-[#0035A0] text-white font-black py-4 hover:bg-blue-900 transition text-lg mt-4 flex items-center justify-center w-full">
+                  {t.submit} <ArrowUpRight className="ml-2 h-6 w-6 stroke-[3]" />
+                </button>
+                {status && <p className="text-green-700 font-bold text-sm mt-2 text-center">{status}</p>}
+              </form>
+            </motion.div>
           </div>
 
         </div>
