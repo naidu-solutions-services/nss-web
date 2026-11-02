@@ -175,7 +175,7 @@ const aboutTranslations = {
     f2Name: "ଅକ୍ଷିତ ଚନ୍ଦ୍ରଶେଖର ଆମ୍ମିସେଟ୍ଟି",
     f2Role: "ସହ-ପ୍ରତିଷ୍ଠାତା ଏବଂ ନିର୍ଦ୍ଦେଶକ",
     f2Desc: "ଭଲ କାମ ଏବଂ ଟିମ୍ ୱାର୍କ ମାଧ୍ୟମରେ ଗ୍ରାହକଙ୍କୁ ସନ୍ତୁଷ୍ଟ କରିବାକୁ ଚେଷ୍ଟା କରୁଛନ୍ତି.",
-    f3Name: "ଅରୁଣ ଚନ୍ଦ୍ରଶେଖର ଆମ୍ମିସେଟ୍ଟି",
+    f3Name: "ଅରুণ ଚନ୍ଦ୍ରଶେଖର ଆମ୍ମିସେଟ୍ଟି",
     f3Role: "ସହ-ପ୍ରତିଷ୍ଠାତା",
     f3Desc: "ବୈଷୟିକ କାର୍ଯ୍ୟ ଏବଂ ଡିଜିଟାଲ୍ ଟେକ୍ନୋଲୋଜିର ତଦାରଖ କରନ୍ତି."
   },
@@ -368,15 +368,15 @@ export const About = () => {
               <p className="text-lg text-gray-900 font-bold mb-4">{t.f3Role}</p>
               <p className="text-base text-gray-600 font-medium mb-4">{t.f3Desc}</p>
               
-              {/* AnyAstro Techno Solutions Link */}
+              {/* AnyAstro Techno Solutions Link with Image replacing SVG */}
               <a 
                 href="https://rebrand.ly/aatns" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="flex items-center space-x-3 mb-6 p-3 bg-gray-50 border border-gray-200 hover:border-[#0035A0] transition group mt-auto"
               >
-                <div className="w-8 h-8 bg-[#0035A0] rounded-sm flex items-center justify-center shrink-0">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M12 2L1 21h22L12 2zm0 3.5l7 13.5H5l7-13.5z"/></svg>
+                <div className="w-8 h-8 bg-white border border-gray-200 rounded-sm overflow-hidden flex items-center justify-center shrink-0">
+                  <img src="https://i.postimg.cc/KvkYmNkb/imageedit-1-5599915949.png" alt="AnyAstro Techno Solutions Logo" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs text-gray-500 font-bold uppercase">CTO & Lead Developer</span>
