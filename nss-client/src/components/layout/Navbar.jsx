@@ -6,20 +6,20 @@ import { useAuth } from '../../context/AuthContext';
 
 // Simple business language translations for 13+ Indian languages
 const navTranslations = {
-  en: { home: "Home", aboutUs: "About Us", ourStory: "Our Story", team: "Executive Team", solutions: "Solutions", eotCranes: "EOT Cranes", roofProfile: "Roof Profile", automation: "Factory Automation", knowledge: "Knowledge Base", news: "News & Media", projects: "Projects", contact: "Contact", login: "Sign In", logout: "Sign Out", selectLang: "Select Language", searchPlaceholder: "Search our site...", close: "Close", callUs: "Call Us", searchBtn: "Search" },
-  hi: { home: "होम", aboutUs: "हमारे बारे में", ourStory: "हमारी कहानी", team: "हमारी टीम", solutions: "सेवाएं", eotCranes: "क्रेन का काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "समाचार", projects: "हमारे काम", contact: "संपर्क करें", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनें", searchPlaceholder: "यहाँ खोजें...", close: "बंद करें", callUs: "हमें कॉल करें", searchBtn: "खोजें" },
-  mr: { home: "मुख्यपृष्ठ", aboutUs: "आमच्याबद्दल", ourStory: "आमची कहाणी", team: "आमची टीम", solutions: "सेवा", eotCranes: "क्रेन काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "बातम्या", projects: "आमचे काम", contact: "संपर्क", login: "लॉग इन", logout: "बाहेर पडा", selectLang: "भाषा निवडा", searchPlaceholder: "येथे शोधा...", close: "बंद करा", callUs: "आम्हाला कॉल करा", searchBtn: "शोधा" },
-  te: { home: "హోమ్", aboutUs: "మా గురించి", ourStory: "మా కథ", team: "మా బృందం", solutions: "సేవలు", eotCranes: "క్రేన్ పని", roofProfile: "రూఫ్ యంత్రాలు", automation: "ఆటోమేషన్", knowledge: "జ్ఞాన కేంద్రం", news: "వార్తలు", projects: "మా పనులు", contact: "సంప్రదించండి", login: "లాగిన్", logout: "లాగ్అవుట్", selectLang: "భాషను ఎంచుకోండి", searchPlaceholder: "ఇక్కడ శోధించండి...", close: "మూసివేయి", callUs: "మాకు కాల్ చేయండి", searchBtn: "శోధించండి" },
-  ta: { home: "முகப்பு", aboutUs: "எங்களைப் பற்றி", ourStory: "எங்கள் கதை", team: "எங்கள் குழு", solutions: "சேவைகள்", eotCranes: "கிரேன் வேலை", roofProfile: "கூரை இயந்திரங்கள்", automation: "ஆட்டோமேஷன்", knowledge: "அறிவு மையம்", news: "செய்திகள்", projects: "எங்கள் பணிகள்", contact: "தொடர்பு கொள்ள", login: "உள்நுழைக", logout: "வெளியேறு", selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்", searchPlaceholder: "இங்கே தேடவும்...", close: "மூடு", callUs: "எங்களை அழைக்கவும்", searchBtn: "தேடு" },
-  kn: { home: "ಮುಖಪುಟ", aboutUs: "ನಮ್ಮ ಬಗ್ಗೆ", ourStory: "ನಮ್ಮ ಕಥೆ", team: "ನಮ್ಮ ತಂಡ", solutions: "ಸೇವೆಗಳು", eotCranes: "ಕ್ರೇನ್ ಕೆಲಸ", roofProfile: "ಛಾವಣಿ ಯಂತ್ರಗಳು", automation: "ಆಟೊಮೇಷನ್", knowledge: "ಜ್ಞಾನ ಕೇಂದ್ರ", news: "ಸುದ್ದಿ", projects: "ನಮ್ಮ ಕೆಲಸಗಳು", contact: "ಸಂಪರ್ಕಿಸಿ", login: "ಲಾಗಿನ್", logout: "ಲಾಗ್ ಔಟ್", selectLang: "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ", searchPlaceholder: "ಇಲ್ಲಿ ಹುಡುಕಿ...", close: "ಮುಚ್ಚಿ", callUs: "ನಮಗೆ ಕರೆ ಮಾಡಿ", searchBtn: "ಹುಡುಕಿ" },
-  ml: { home: "ഹോം", aboutUs: "ഞങ്ങളെക്കുറിച്ച്", ourStory: "ഞങ്ങളുടെ കഥ", team: "ഞങ്ങളുടെ ടീം", solutions: "സേവനങ്ങൾ", eotCranes: "ക്രെയിൻ ജോലി", roofProfile: "റൂഫ് മെഷീനുകൾ", automation: "ഓട്ടോമേഷൻ", knowledge: "വിവര കേന്ദ്രം", news: "വാർത്തകൾ", projects: "ഞങ്ങളുടെ ജോലികൾ", contact: "ബന്ധപ്പെടുക", login: "ലോഗിൻ", logout: "ലോഗൗട്ട്", selectLang: "ഭാഷ തിരഞ്ഞെടുക്കുക", searchPlaceholder: "ഇവിടെ തിരയുക...", close: "അടയ്ക്കുക", callUs: "ഞങ്ങളെ വിളിക്കുക", searchBtn: "തിരയുക" },
-  gu: { home: "હોમ", aboutUs: "અમારા વિશે", ourStory: "અમારી વાર્તા", team: "અમારી ટીમ", solutions: "સેવાઓ", eotCranes: "ક્રેનનું કામ", roofProfile: "છતની મશીનો", automation: "ઓટોમેશન", knowledge: "જ્ઞાન કેન્દ્ર", news: "સમાચાર", projects: "અમારા કામ", contact: "સંપર્ક કરો", login: "લૉગ ઇન", logout: "લૉગ આઉટ", selectLang: "ભાષા પસંદ કરો", searchPlaceholder: "અહીં શોધો...", close: "બંધ કરો", callUs: "અમને કૉલ કરો", searchBtn: "શોધો" },
-  pa: { home: "ਹੋਮ", aboutUs: "ਸਾਡੇ ਬਾਰੇ", ourStory: "ਸਾਡੀ ਕਹਾਣੀ", team: "ਸਾਡੀ ਟੀਮ", solutions: "ਸੇਵਾਵਾਂ", eotCranes: "ਕਰੇਨ ਦਾ ਕੰਮ", roofProfile: "ਛੱਤ ਦੀਆਂ ਮਸ਼ੀਨਾਂ", automation: "ਆਟੋਮੇਸ਼ਨ", knowledge: "ਗਿਆਨ ਕੇਂਦਰ", news: "ਖ਼ਬਰਾਂ", projects: "ਸਾਡੇ ਕੰਮ", contact: "ਸੰਪਰਕ ਕਰੋ", login: "ਲਾਗਇਨ", logout: "ਲਾਗ ਆਉਟ", selectLang: "ਭਾਸ਼ਾ ਚੁਣੋ", searchPlaceholder: "ਇੱਥੇ ਖੋਜੋ...", close: "ਬੰਦ ਕਰੋ", callUs: "ਸਾਨੂੰ ਕਾਲ ਕਰੋ", searchBtn: "ਖੋਜੋ" },
-  bn: { home: "হোম", aboutUs: "আমাদের সম্পর্কে", ourStory: "আমাদের গল্প", team: "আমাদের দল", solutions: "পরিষেবা", eotCranes: "ক্রেনের কাজ", roofProfile: "ছাদের মেশিন", automation: "অটোমেশন", knowledge: "জ্ঞান কেন্দ্র", news: "খবর", projects: "আমাদের কাজ", contact: "যোগাযোগ করুন", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা নির্বাচন করুন", searchPlaceholder: "এখানে খুঁজুন...", close: "বন্ধ করুন", callUs: "আমাদের কল করুন", searchBtn: "খুঁজুন" },
-  or: { home: "ହୋମ୍", aboutUs: "ଆମ ବିଷୟରେ", ourStory: "ଆମର କାହାଣୀ", team: "ଆମର ଟିମ୍", solutions: "ସେବା", eotCranes: "କ୍ରେନ୍ କାମ", roofProfile: "ଛାତ ମେସିନ୍", automation: "ଅଟୋମେସନ୍", knowledge: "ଜ୍ଞାନ କେନ୍ଦ୍ର", news: "ଖବର", projects: "ଆମର କାମ", contact: "ଯୋଗାଯୋଗ କରନ୍ତୁ", login: "ଲଗଇନ୍", logout: "ଲଗଆଉଟ୍", selectLang: "ଭାଷା ବାଛନ୍ତୁ", searchPlaceholder: "ଏଠାରେ ଖୋଜନ୍ତୁ...", close: "ବନ୍ଦ କରନ୍ତୁ", callUs: "ଆମକୁ କଲ୍ କରନ୍ତୁ", searchBtn: "ଖୋଜନ୍ତୁ" },
-  ur: { home: "ہوم", aboutUs: "ہمارے بارے میں", ourStory: "ہماری کہانی", team: "ہماری ٹیم", solutions: "خدمات", eotCranes: "کرین کا کام", roofProfile: "چھت کی مشینیں", automation: "آٹومیشن", knowledge: "معلوماتی مرکز", news: "خبریں", projects: "ہمارے کام", contact: "رابطہ کریں", login: "لاگ ان", logout: "لاگ آؤٹ", selectLang: "زبان منتخب کریں", searchPlaceholder: "یہاں تلاش کریں...", close: "بند کریں", callUs: "ہمیں کال کریں", searchBtn: "تلاش کریں" },
-  as: { home: "হোম", aboutUs: "আমাৰ বিষয়ে", ourStory: "আমাৰ কাহিনী", team: "আমাৰ দল", solutions: "সেৱাসমূহ", eotCranes: "ক্ৰেনৰ কাম", roofProfile: "ছাদৰ মেচিন", automation: "অটোমেচন", knowledge: "জ্ঞান কেন্দ্ৰ", news: "খবৰ", projects: "আমাৰ কাম", contact: "যোগাযোগ কৰক", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা বাছক", searchPlaceholder: "ইয়াত খোজক...", close: "বন্ধ কৰক", callUs: "আমালৈ কল কৰক", searchBtn: "খোজক" },
-  bho: { home: "होम", aboutUs: "हमनी के बारे में", ourStory: "हमनी के कहानी", team: "हमनी के टीम", solutions: "सेवा", eotCranes: "क्रेन के काम", roofProfile: "छत के मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "खबर", projects: "हमनी के काम", contact: "संपर्क करीं", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनीं", searchPlaceholder: "इहाँ खोजीं...", close: "बंद करीं", callUs: "हमनी के कॉल करीं", searchBtn: "खोजीं" }
+  en: { home: "Home", aboutUs: "About Us", ourStory: "Our Story", team: "Executive Team", solutions: "Solutions", eotCranes: "EOT Cranes", roofProfile: "Roof Profile", automation: "Factory Automation", knowledge: "Knowledge Base", news: "News & Media", projects: "Projects", contact: "Contact", login: "Sign In", logout: "Sign Out", selectLang: "Select Language", close: "Close", callUs: "Call Us" },
+  hi: { home: "होम", aboutUs: "हमारे बारे में", ourStory: "हमारी कहानी", team: "हमारी टीम", solutions: "सेवाएं", eotCranes: "क्रेन का काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "समाचार", projects: "हमारे काम", contact: "संपर्क करें", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनें", close: "बंद करें", callUs: "हमें कॉल करें" },
+  mr: { home: "मुख्यपृष्ठ", aboutUs: "आमच्याबद्दल", ourStory: "आमची कहाणी", team: "आमची टीम", solutions: "सेवा", eotCranes: "क्रेन काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "बातम्या", projects: "आमचे काम", contact: "संपर्क", login: "लॉग इन", logout: "बाहेर पडा", selectLang: "भाषा निवडा", close: "बंद करा", callUs: "आम्हाला कॉल करा" },
+  te: { home: "హోమ్", aboutUs: "మా గురించి", ourStory: "మా కథ", team: "మా బృందం", solutions: "సేవలు", eotCranes: "క్రేన్ పని", roofProfile: "రూఫ్ యంత్రాలు", automation: "ఆటోమేషన్", knowledge: "జ్ఞాన కేంద్రం", news: "వార్తలు", projects: "మా పనులు", contact: "సంప్రదించండి", login: "లాగిన్", logout: "లాగ్అవుట్", selectLang: "భాషను ఎంచుకోండి", close: "మూసివేయి", callUs: "మాకు కాల్ చేయండి" },
+  ta: { home: "முகப்பு", aboutUs: "எங்களைப் பற்றி", ourStory: "எங்கள் கதை", team: "எங்கள் குழு", solutions: "சேவைகள்", eotCranes: "கிரேன் வேலை", roofProfile: "கூரை இயந்திரங்கள்", automation: "ஆட்டோமேஷன்", knowledge: "அறிவு மையம்", news: "செய்திகள்", projects: "எங்கள் பணிகள்", contact: "தொடர்பு கொள்ள", login: "உள்நுழைக", logout: "வெளியேறு", selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்", close: "மூடு", callUs: "எங்களை அழைக்கவும்" },
+  kn: { home: "ಮುಖಪುಟ", aboutUs: "ನಮ್ಮ ಬಗ್ಗೆ", ourStory: "ನಮ್ಮ ಕಥೆ", team: "ನಮ್ಮ ತಂಡ", solutions: "ಸೇವೆಗಳು", eotCranes: "ಕ್ರೇನ್ ಕೆಲಸ", roofProfile: "ಛಾವಣಿ ಯಂತ್ರಗಳು", automation: "ಆಟೊಮೇಷನ್", knowledge: "ಜ್ಞಾನ ಕೇಂದ್ರ", news: "ಸುದ್ದಿ", projects: "ನಮ್ಮ ಕೆಲಸಗಳು", contact: "ಸಂಪರ್ಕಿಸಿ", login: "ಲಾಗಿನ್", logout: "ಲಾಗ್ ಔಟ್", selectLang: "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ", close: "ಮುಚ್ಚಿ", callUs: "ನಮಗೆ ಕರೆ ಮಾಡಿ" },
+  ml: { home: "ഹോം", aboutUs: "ഞങ്ങളെക്കുറിച്ച്", ourStory: "ഞങ്ങളുടെ കഥ", team: "ഞങ്ങളുടെ ടീം", solutions: "സേവനങ്ങൾ", eotCranes: "ക്രെയിൻ ജോലി", roofProfile: "റൂഫ് മെഷീനുകൾ", automation: "ഓട്ടോമേഷൻ", knowledge: "വിവര കേന്ദ്രം", news: "വാർത്തകൾ", projects: "ഞങ്ങളുടെ ജോലികൾ", contact: "ബന്ധപ്പെടുക", login: "ലോഗിൻ", logout: "ലോഗൗട്ട്", selectLang: "ഭാഷ തിരഞ്ഞെടുക്കുക", close: "അടയ്ക്കുക", callUs: "ഞങ്ങളെ വിളിക്കുക" },
+  gu: { home: "હોમ", aboutUs: "અમારા વિશે", ourStory: "અમારી વાર્તા", team: "અમારી ટીમ", solutions: "સેવાઓ", eotCranes: "ક્રેનનું કામ", roofProfile: "છતની મશીનો", automation: "ઓટોમેશન", knowledge: "જ્ઞાન કેન્દ્ર", news: "સમાચાર", projects: "અમારા કામ", contact: "સંપર્ક કરો", login: "લૉગ ઇન", logout: "લૉગ આઉટ", selectLang: "ભાષા પસંદ કરો", close: "બંધ કરો", callUs: "અમને કૉલ કરો" },
+  pa: { home: "ਹੋਮ", aboutUs: "ਸਾਡੇ ਬਾਰੇ", ourStory: "ਸਾਡੀ ਕਹਾਣੀ", team: "ਸਾਡੀ ਟੀਮ", solutions: "ਸੇਵਾਵਾਂ", eotCranes: "ਕਰੇਨ ਦਾ ਕੰਮ", roofProfile: "ਛੱਤ ਦੀਆਂ ਮਸ਼ੀਨਾਂ", automation: "ਆਟੋਮੇਸ਼ਨ", knowledge: "ਗਿਆਨ ਕੇਂਦਰ", news: "ਖ਼ਬਰਾਂ", projects: "ਸਾਡੇ ਕੰਮ", contact: "ਸੰਪਰਕ ਕਰੋ", login: "ਲਾਗਇਨ", logout: "ਲਾਗ ਆਉਟ", selectLang: "ਭਾਸ਼ਾ ਚੁਣੋ", close: "ਬੰਦ ਕਰੋ", callUs: "ਸਾਨੂੰ ਕਾਲ ਕਰੋ" },
+  bn: { home: "হোম", aboutUs: "আমাদের সম্পর্কে", ourStory: "আমাদের গল্প", team: "আমাদের দল", solutions: "পরিষেবা", eotCranes: "ক্রেনের কাজ", roofProfile: "ছাদের মেশিন", automation: "অটোমেশন", knowledge: "জ্ঞান কেন্দ্র", news: "খবর", projects: "আমাদের কাজ", contact: "যোগাযোগ করুন", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা নির্বাচন করুন", close: "বন্ধ করুন", callUs: "আমাদের কল করুন" },
+  or: { home: "ହୋମ୍", aboutUs: "ଆମ ବିଷୟରେ", ourStory: "ଆମର କାହାଣୀ", team: "ଆମର ଟିମ୍", solutions: "ସେବା", eotCranes: "କ୍ରେନ୍ କାମ", roofProfile: "ଛାତ ମେସିନ୍", automation: "ଅଟୋମେସନ୍", knowledge: "ଜ୍ଞାନ କେନ୍ଦ୍ର", news: "ଖବର", projects: "ଆମର କାମ", contact: "ଯୋଗାଯୋଗ କରନ୍ତୁ", login: "ଲଗଇନ୍", logout: "ଲଗଆଉଟ୍", selectLang: "ଭାଷା ବାଛନ୍ତୁ", close: "ବନ୍ଦ କରନ୍ତୁ", callUs: "ଆମକୁ କଲ୍ କରନ୍ତୁ" },
+  ur: { home: "ہوم", aboutUs: "ہمارے بارے میں", ourStory: "ہماری کہانی", team: "ہماری ٹیم", solutions: "خدمات", eotCranes: "کرین کا کام", roofProfile: "چھت کی مشینیں", automation: "آٹومیشن", knowledge: "معلوماتی مرکز", news: "خبریں", projects: "ہمارے کام", contact: "رابطہ کریں", login: "لاگ ان", logout: "لاگ آؤٹ", selectLang: "زبان منتخب کریں", close: "بند کریں", callUs: "ہمیں کال کریں" },
+  as: { home: "হোম", aboutUs: "আমাৰ বিষয়ে", ourStory: "আমাৰ কাহিনী", team: "আমাৰ দল", solutions: "সেৱাসমূহ", eotCranes: "ক্ৰেনৰ কাম", roofProfile: "ছাদৰ মেচিন", automation: "অটোমেচন", knowledge: "জ্ঞান কেন্দ্ৰ", news: "খবৰ", projects: "আমাৰ কাম", contact: "যোগাযোগ কৰক", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা বাছক", close: "বন্ধ কৰক", callUs: "আমালৈ কল কৰক" },
+  bho: { home: "होम", aboutUs: "हमनी के बारे में", ourStory: "हमनी के कहानी", team: "हमनी के टीम", solutions: "सेवा", eotCranes: "क्रेन के काम", roofProfile: "छत के मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "खबर", projects: "हमनी के काम", contact: "संपर्क करीं", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनीं", close: "बंद करीं", callUs: "हमनी के कॉल करीं" }
 };
 
 const languagesList = [
@@ -42,10 +42,8 @@ export const Navbar = () => {
   const [language, setLanguage] = useState(localStorage.getItem('nss_lang') || 'en');
 
   // UI Modal States
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isPhoneOpen, setIsPhoneOpen] = useState(false);
   const [isGlobeOpen, setIsGlobeOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleLanguageSelect = (code) => {
     setLanguage(code);
@@ -60,21 +58,17 @@ export const Navbar = () => {
     navigate('/');
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      setIsSearchOpen(false);
-      navigate(`/projects?search=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery("");
-    }
-  };
-
   const toggleMobileExpand = (menu) => {
     if (mobileExpanded === menu) {
       setMobileExpanded(null);
     } else {
       setMobileExpanded(menu);
     }
+  };
+
+  const handleSearchNavigation = () => {
+    setIsMobileMenuOpen(false);
+    navigate('/search');
   };
 
   const t = navTranslations[language] || navTranslations['en'];
@@ -155,7 +149,7 @@ export const Navbar = () => {
 
             {/* Right: Desktop Icons & Contact Button */}
             <div className="hidden md:flex items-center space-x-6">
-              <button onClick={() => setIsSearchOpen(true)} className="focus:outline-none">
+              <button onClick={handleSearchNavigation} className="focus:outline-none">
                 <Search className="h-5 w-5 text-gray-700 hover:text-[#0035A0] transition" />
               </button>
               
@@ -171,7 +165,7 @@ export const Navbar = () => {
 
             {/* Mobile: Right Aligned Icon Cluster */}
             <div className="flex md:hidden items-center space-x-5">
-              <button onClick={() => setIsSearchOpen(true)} className="focus:outline-none"><Search className="h-6 w-6 text-gray-900" /></button>
+              <button onClick={handleSearchNavigation} className="focus:outline-none"><Search className="h-6 w-6 text-gray-900" /></button>
               <button onClick={() => setIsPhoneOpen(true)} className="focus:outline-none"><Phone className="h-6 w-6 text-gray-900" /></button>
               <button onClick={() => setIsGlobeOpen(true)} className="focus:outline-none"><Globe className="h-6 w-6 text-gray-900" /></button>
               <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-900 focus:outline-none">
@@ -185,40 +179,7 @@ export const Navbar = () => {
 
       {/* --- OVERLAYS AND MODALS --- */}
 
-      {/* 1. Full Screen Search Overlay */}
-      <AnimatePresence>
-        {isSearchOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-[60] bg-white flex flex-col p-6"
-          >
-            <div className="flex justify-end mb-8">
-              <button onClick={() => setIsSearchOpen(false)} className="text-gray-900 bg-gray-100 p-2 rounded-sm hover:bg-gray-200 transition">
-                <X className="h-8 w-8" />
-              </button>
-            </div>
-            <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full">
-              <form onSubmit={handleSearchSubmit} className="w-full relative">
-                <input 
-                  type="text" 
-                  autoFocus
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={t.searchPlaceholder}
-                  className="w-full text-3xl md:text-5xl font-black text-gray-900 border-b-4 border-[#0035A0] pb-4 outline-none placeholder-gray-300"
-                />
-                <button type="submit" className="absolute right-0 bottom-4 text-[#0035A0] hover:text-blue-800">
-                  <Search className="h-10 w-10 md:h-12 md:w-12" />
-                </button>
-              </form>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 2. Contact Phone Modal */}
+      {/* 1. Contact Phone Modal */}
       <AnimatePresence>
         {isPhoneOpen && (
           <motion.div 
@@ -263,7 +224,7 @@ export const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* 3. Globe Language Modal */}
+      {/* 2. Globe Language Modal */}
       <AnimatePresence>
         {isGlobeOpen && (
           <motion.div 
@@ -298,7 +259,7 @@ export const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* 4. Mobile Full Screen Dropdown Drawer */}
+      {/* 3. Mobile Full Screen Dropdown Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
