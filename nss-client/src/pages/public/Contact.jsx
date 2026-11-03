@@ -112,7 +112,7 @@ export const Contact = () => {
                   <div>
                     <p className="font-bold text-lg text-gray-900 mb-1">{t.addressTitle}</p>
                     <p className="text-gray-700 font-semibold mb-2">{t.addressDesc}</p>
-                    <a href="https://maps.google.com/?q=121+Kissan+Nagar,+CIDCO,+Nanded,+Maharashtra+431603" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-[#0035A0] font-bold hover:underline">
+                    <a href="https://maps.app.goo.gl/qTRC2oJ6JzMQw55DA?g_st=ac" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-[#0035A0] font-bold hover:underline">
                       <Navigation className="h-4 w-4 mr-1" /> {t.mapLink}
                     </a>
                   </div>
