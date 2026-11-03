@@ -6,8 +6,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { CookieBanner } from './components/ui/CookieBanner';
-import { FloatingChat } from './components/ui/FloatingChat';
-import { AccessibilityMenu } from './components/ui/AccessibilityMenu';
 
 // Public Pages
 import { Home } from './pages/public/Home';
@@ -121,8 +119,6 @@ export default function App() {
 
           <Footer />
           <CookieBanner />
-          <FloatingChat />
-          <AccessibilityMenu />
         </div>
       </Router>
     </AuthProvider>

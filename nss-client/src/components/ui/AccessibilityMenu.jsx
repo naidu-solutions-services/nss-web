@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Accessibility, Moon, Sun, Type, Link as LinkIcon, RotateCcw, X, Contrast } from 'lucide-react';
+import { Moon, Sun, Type, Link as LinkIcon, RotateCcw, X, Contrast } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const accessTranslations = {
@@ -19,8 +19,8 @@ const accessTranslations = {
   bho: { title: "एक्सेसिबिलिटी मेनू", dark: "डार्क मोड", contrast: "हाई कंट्रास्ट", bigText: "बड़हन टेक्स्ट", font: "पढ़े लायक फॉन्ट", links: "लिंक देखाईं", reset: "सब रीसेट करीं", close: "मेनू बंद करीं" }
 };
 
-export const AccessibilityMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+// Component now accepts isOpen and onClose props strictly from the Navbar
+export const AccessibilityMenu = ({ isOpen, onClose }) => {
   const [language, setLanguage] = useState(localStorage.getItem('nss_lang') || 'en');
   
   // States for 5 distinct accessibility features
@@ -105,96 +105,83 @@ export const AccessibilityMenu = () => {
   const t = accessTranslations[language] || accessTranslations['en'];
 
   return (
-    <div className="fixed bottom-28 right-6 z-[70] font-sans flex flex-col items-end">
-      
-      {/* Floating Toggle Button */}
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-[#0035A0] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-800 transition focus:outline-none focus:ring-4 focus:ring-blue-300"
-        aria-label={t.title}
-      >
-        <Accessibility className="w-7 h-7" />
-      </button>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, y: 20, x: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20, x: 20 }}
+          className="fixed top-24 right-4 md:right-8 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl rounded-sm overflow-hidden flex flex-col z-[60] font-sans"
+        >
+          <div className="bg-[#0035A0] text-white p-4 flex justify-between items-center">
+            <h3 className="font-bold text-lg">{t.title}</h3>
+            <button onClick={onClose} aria-label={t.close} className="text-white hover:text-gray-200 focus:outline-none">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-      {/* Slide-out Menu - Expanding from Right */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: 20, x: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20, x: 20 }}
-            className="absolute bottom-16 right-0 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl rounded-sm overflow-hidden flex flex-col"
-          >
-            <div className="bg-[#0035A0] text-white p-4 flex justify-between items-center">
-              <h3 className="font-bold text-lg">{t.title}</h3>
-              <button onClick={() => setIsOpen(false)} aria-label={t.close} className="text-white hover:text-gray-200 focus:outline-none">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+          <div className="p-4 flex flex-col space-y-3 max-h-[60vh] overflow-y-auto">
+            
+            {/* Feature 1: Dark Mode Toggle */}
+            <button 
+              onClick={() => toggleSetting('dark')}
+              className={`flex items-center w-full p-3 border font-semibold transition ${settings.dark ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
+            >
+              {settings.dark ? <Sun className="w-5 h-5 mr-3" /> : <Moon className="w-5 h-5 mr-3" />}
+              {t.dark}
+            </button>
 
-            <div className="p-4 flex flex-col space-y-3 max-h-[60vh] overflow-y-auto">
-              
-              {/* Feature 1: Dark Mode Toggle */}
-              <button 
-                onClick={() => toggleSetting('dark')}
-                className={`flex items-center w-full p-3 border font-semibold transition ${settings.dark ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
-              >
-                {settings.dark ? <Sun className="w-5 h-5 mr-3" /> : <Moon className="w-5 h-5 mr-3" />}
-                {t.dark}
-              </button>
+            {/* Feature 2: High Contrast Toggle */}
+            <button 
+              onClick={() => toggleSetting('contrast')}
+              className={`flex items-center w-full p-3 border font-semibold transition ${settings.contrast ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
+            >
+              <Contrast className="w-5 h-5 mr-3" />
+              {t.contrast}
+            </button>
 
-              {/* Feature 2: High Contrast Toggle */}
-              <button 
-                onClick={() => toggleSetting('contrast')}
-                className={`flex items-center w-full p-3 border font-semibold transition ${settings.contrast ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
-              >
-                <Contrast className="w-5 h-5 mr-3" />
-                {t.contrast}
-              </button>
+            {/* Feature 3: Large Text Toggle */}
+            <button 
+              onClick={() => toggleSetting('largeText')}
+              className={`flex items-center w-full p-3 border font-semibold transition ${settings.largeText ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
+            >
+              <Type className="w-5 h-5 mr-3" />
+              {t.bigText}
+            </button>
 
-              {/* Feature 3: Large Text Toggle */}
-              <button 
-                onClick={() => toggleSetting('largeText')}
-                className={`flex items-center w-full p-3 border font-semibold transition ${settings.largeText ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
-              >
-                <Type className="w-5 h-5 mr-3" />
-                {t.bigText}
-              </button>
+            {/* Feature 4: Readable Font Toggle */}
+            <button 
+              onClick={() => toggleSetting('font')}
+              className={`flex items-center w-full p-3 border font-semibold transition ${settings.font ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
+            >
+              <Type className="w-5 h-5 mr-3" />
+              {t.font}
+            </button>
 
-              {/* Feature 4: Readable Font Toggle */}
-              <button 
-                onClick={() => toggleSetting('font')}
-                className={`flex items-center w-full p-3 border font-semibold transition ${settings.font ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
-              >
-                <Type className="w-5 h-5 mr-3" />
-                {t.font}
-              </button>
+            {/* Feature 5: Highlight Links Toggle */}
+            <button 
+              onClick={() => toggleSetting('links')}
+              className={`flex items-center w-full p-3 border font-semibold transition ${settings.links ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
+            >
+              <LinkIcon className="w-5 h-5 mr-3" />
+              {t.links}
+            </button>
 
-              {/* Feature 5: Highlight Links Toggle */}
-              <button 
-                onClick={() => toggleSetting('links')}
-                className={`flex items-center w-full p-3 border font-semibold transition ${settings.links ? 'bg-[#0035A0] text-white border-[#0035A0]' : 'bg-gray-50 text-gray-900 border-gray-200 hover:border-[#0035A0] dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}
-              >
-                <LinkIcon className="w-5 h-5 mr-3" />
-                {t.links}
-              </button>
+          </div>
 
-            </div>
+          {/* Feature 6: Reset Settings */}
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+            <button 
+              onClick={resetSettings}
+              className="flex items-center justify-center w-full p-3 bg-red-600 text-white font-bold hover:bg-red-700 transition"
+            >
+              <RotateCcw className="w-5 h-5 mr-2" />
+              {t.reset}
+            </button>
+          </div>
 
-            {/* Feature 6: Reset Settings */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-              <button 
-                onClick={resetSettings}
-                className="flex items-center justify-center w-full p-3 bg-red-600 text-white font-bold hover:bg-red-700 transition"
-              >
-                <RotateCcw className="w-5 h-5 mr-2" />
-                {t.reset}
-              </button>
-            </div>
-
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
