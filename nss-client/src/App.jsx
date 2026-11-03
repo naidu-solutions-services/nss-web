@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
@@ -18,18 +18,51 @@ import { Automation } from './pages/public/Automation';
 import { Knowledge } from './pages/public/Knowledge';
 import { Contact } from './pages/public/Contact';
 
-// Note: Ensure you have basic Login and Dashboard components created in your pages folder.
-// If they do not exist yet, create simple placeholder files for them to prevent import errors.
+// Newly Created Pages
+import { Search } from './pages/public/Search';
+import { Buildings } from './pages/public/Buildings';
+import { StructuralSteel } from './pages/public/StructuralSteel';
+import { Maintenance } from './pages/public/Maintenance';
+import { Consulting } from './pages/public/Consulting';
+
+// Auth and Secure Pages
 import { Login } from './pages/auth/Login'; 
 import { Dashboard } from './pages/secure/Dashboard'; 
 
+// Simple business language translations for the loading screen
+const appTranslations = {
+  en: { loading: "Loading system..." },
+  hi: { loading: "सिस्टम लोड हो रहा है..." },
+  mr: { loading: "सिस्टम लोड होत आहे..." },
+  te: { loading: "సిస్టమ్ లోడ్ అవుతోంది..." },
+  ta: { loading: "சிஸ்டம் ஏற்றப்படுகிறது..." },
+  kn: { loading: "ಸಿಸ್ಟಮ್ ಲೋಡ್ ಆಗುತ್ತಿದೆ..." },
+  ml: { loading: "സിസ്റ്റം ലോഡ് ചെയ്യുന്നു..." },
+  gu: { loading: "સિસ્ટમ લોડ થઈ રહ્યું છે..." },
+  pa: { loading: "ਸਿਸਟਮ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ..." },
+  bn: { loading: "সিস্টেম লোড হচ্ছে..." },
+  or: { loading: "ସିଷ୍ଟମ୍ ଲୋଡ୍ ହେଉଛି..." },
+  ur: { loading: "سسٹم لوڈ ہو رہا ہے..." },
+  as: { loading: "চিষ্টেম ল'ড হৈ আছে..." },
+  bho: { loading: "सिस्टम लोड हो रहल बा..." }
+};
+
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
+  const [language, setLanguage] = useState(localStorage.getItem('nss_lang') || 'en');
+
+  useEffect(() => {
+    const handleLangChange = (e) => setLanguage(e.detail);
+    window.addEventListener('languageChanged', handleLangChange);
+    return () => window.removeEventListener('languageChanged', handleLangChange);
+  }, []);
+
+  const t = appTranslations[language] || appTranslations['en'];
   
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-white text-[#0035A0] font-black text-xl">
-        Loading...
+        {t.loading}
       </div>
     );
   }
@@ -59,6 +92,13 @@ export default function App() {
               <Route path="/automation" element={<Automation />} />
               <Route path="/knowledge" element={<Knowledge />} />
               <Route path="/contact" element={<Contact />} />
+              
+              {/* Newly Added Routes */}
+              <Route path="/search" element={<Search />} />
+              <Route path="/buildings" element={<Buildings />} />
+              <Route path="/structural-steel" element={<StructuralSteel />} />
+              <Route path="/maintenance" element={<Maintenance />} />
+              <Route path="/consulting" element={<Consulting />} />
               
               {/* Auth Route */}
               <Route path="/login" element={<Login />} />

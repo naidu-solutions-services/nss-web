@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search as SearchIcon, ArrowUpRight, Tool, Building, PhoneCall, FileText } from 'lucide-react';
+import { Search as SearchIcon, ArrowUpRight, Wrench, Building, PhoneCall, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const searchTranslations = {
@@ -34,9 +34,9 @@ export const Search = () => {
 
   // Real data index matching the platform's core services
   const siteIndex = [
-    { id: 1, title: t.c1, desc: t.resultDesc1, link: "/eot-cranes", icon: <Tool className="h-6 w-6" /> },
+    { id: 1, title: t.c1, desc: t.resultDesc1, link: "/eot-cranes", icon: <Wrench className="h-6 w-6" /> },
     { id: 2, title: t.c2, desc: t.resultDesc2, link: "/roof-profile", icon: <Building className="h-6 w-6" /> },
-    { id: 3, title: t.c3, desc: t.resultDesc3, link: "/automation", icon: <Tool className="h-6 w-6" /> },
+    { id: 3, title: t.c3, desc: t.resultDesc3, link: "/automation", icon: <Wrench className="h-6 w-6" /> },
     { id: 4, title: t.c4, desc: t.resultDesc4, link: "/knowledge", icon: <FileText className="h-6 w-6" /> }
   ];
 
