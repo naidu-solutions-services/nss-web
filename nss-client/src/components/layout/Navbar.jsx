@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Phone, Globe, Menu, X, ChevronRight, ChevronDown, PhoneCall } from 'lucide-react';
+import { Search, Phone, Globe, Menu, X, ChevronRight, ChevronDown, PhoneCall, MessageSquare, Accessibility } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 
+// Import controlled overlay components
+import { AccessibilityMenu } from '.././ui/AccessibilityMenu';
+import { FloatingChat } from '.././ui/FloatingChat';
+
 // Simple business language translations for 13+ Indian languages
 const navTranslations = {
-  en: { home: "Home", aboutUs: "About Us", ourStory: "Our Story", team: "Executive Team", solutions: "Solutions", eotCranes: "EOT Cranes", roofProfile: "Roof Profile", automation: "Factory Automation", knowledge: "Knowledge Base", news: "News & Media", projects: "Projects", contact: "Contact", login: "Sign In", logout: "Sign Out", selectLang: "Select Language", close: "Close", callUs: "Call Us" },
-  hi: { home: "होम", aboutUs: "हमारे बारे में", ourStory: "हमारी कहानी", team: "हमारी टीम", solutions: "सेवाएं", eotCranes: "क्रेन का काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "समाचार", projects: "हमारे काम", contact: "संपर्क करें", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनें", close: "बंद करें", callUs: "हमें कॉल करें" },
-  mr: { home: "मुख्यपृष्ठ", aboutUs: "आमच्याबद्दल", ourStory: "आमची कहाणी", team: "आमची टीम", solutions: "सेवा", eotCranes: "क्रेन काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "बातम्या", projects: "आमचे काम", contact: "संपर्क", login: "लॉग इन", logout: "बाहेर पडा", selectLang: "भाषा निवडा", close: "बंद करा", callUs: "आम्हाला कॉल करा" },
-  te: { home: "హోమ్", aboutUs: "మా గురించి", ourStory: "మా కథ", team: "మా బృందం", solutions: "సేవలు", eotCranes: "క్రేన్ పని", roofProfile: "రూఫ్ యంత్రాలు", automation: "ఆటోమేషన్", knowledge: "జ్ఞాన కేంద్రం", news: "వార్తలు", projects: "మా పనులు", contact: "సంప్రదించండి", login: "లాగిన్", logout: "లాగ్అవుట్", selectLang: "భాషను ఎంచుకోండి", close: "మూసివేయి", callUs: "మాకు కాల్ చేయండి" },
-  ta: { home: "முகப்பு", aboutUs: "எங்களைப் பற்றி", ourStory: "எங்கள் கதை", team: "எங்கள் குழு", solutions: "சேவைகள்", eotCranes: "கிரேன் வேலை", roofProfile: "கூரை இயந்திரங்கள்", automation: "ஆட்டோமேஷன்", knowledge: "அறிவு மையம்", news: "செய்திகள்", projects: "எங்கள் பணிகள்", contact: "தொடர்பு கொள்ள", login: "உள்நுழைக", logout: "வெளியேறு", selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்", close: "மூடு", callUs: "எங்களை அழைக்கவும்" },
-  kn: { home: "ಮುಖಪುಟ", aboutUs: "ನಮ್ಮ ಬಗ್ಗೆ", ourStory: "ನಮ್ಮ ಕಥೆ", team: "ನಮ್ಮ ತಂಡ", solutions: "ಸೇವೆಗಳು", eotCranes: "ಕ್ರೇನ್ ಕೆಲಸ", roofProfile: "ಛಾವಣಿ ಯಂತ್ರಗಳು", automation: "ಆಟೊಮೇಷನ್", knowledge: "ಜ್ಞಾನ ಕೇಂದ್ರ", news: "ಸುದ್ದಿ", projects: "ನಮ್ಮ ಕೆಲಸಗಳು", contact: "ಸಂಪರ್ಕಿಸಿ", login: "ಲಾಗಿನ್", logout: "ಲಾಗ್ ಔಟ್", selectLang: "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ", close: "ಮುಚ್ಚಿ", callUs: "ನಮಗೆ ಕರೆ ಮಾಡಿ" },
-  ml: { home: "ഹോം", aboutUs: "ഞങ്ങളെക്കുറിച്ച്", ourStory: "ഞങ്ങളുടെ കഥ", team: "ഞങ്ങളുടെ ടീം", solutions: "സേവനങ്ങൾ", eotCranes: "ക്രെയിൻ ജോലി", roofProfile: "റൂഫ് മെഷീനുകൾ", automation: "ഓട്ടോമേഷൻ", knowledge: "വിവര കേന്ദ്രം", news: "വാർത്തകൾ", projects: "ഞങ്ങളുടെ ജോലികൾ", contact: "ബന്ധപ്പെടുക", login: "ലോഗിൻ", logout: "ലോഗൗട്ട്", selectLang: "ഭാഷ തിരഞ്ഞെടുക്കുക", close: "അടയ്ക്കുക", callUs: "ഞങ്ങളെ വിളിക്കുക" },
-  gu: { home: "હોમ", aboutUs: "અમારા વિશે", ourStory: "અમારી વાર્તા", team: "અમારી ટીમ", solutions: "સેવાઓ", eotCranes: "ક્રેનનું કામ", roofProfile: "છતની મશીનો", automation: "ઓટોમેશન", knowledge: "જ્ઞાન કેન્દ્ર", news: "સમાચાર", projects: "અમારા કામ", contact: "સંપર્ક કરો", login: "લૉગ ઇન", logout: "લૉગ આઉટ", selectLang: "ભાષા પસંદ કરો", close: "બંધ કરો", callUs: "અમને કૉલ કરો" },
-  pa: { home: "ਹੋਮ", aboutUs: "ਸਾਡੇ ਬਾਰੇ", ourStory: "ਸਾਡੀ ਕਹਾਣੀ", team: "ਸਾਡੀ ਟੀਮ", solutions: "ਸੇਵਾਵਾਂ", eotCranes: "ਕਰੇਨ ਦਾ ਕੰਮ", roofProfile: "ਛੱਤ ਦੀਆਂ ਮਸ਼ੀਨਾਂ", automation: "ਆਟੋਮੇਸ਼ਨ", knowledge: "ਗਿਆਨ ਕੇਂਦਰ", news: "ਖ਼ਬਰਾਂ", projects: "ਸਾਡੇ ਕੰਮ", contact: "ਸੰਪਰਕ ਕਰੋ", login: "ਲਾਗਇਨ", logout: "ਲਾਗ ਆਉਟ", selectLang: "ਭਾਸ਼ਾ ਚੁਣੋ", close: "ਬੰਦ ਕਰੋ", callUs: "ਸਾਨੂੰ ਕਾਲ ਕਰੋ" },
-  bn: { home: "হোম", aboutUs: "আমাদের সম্পর্কে", ourStory: "আমাদের গল্প", team: "আমাদের দল", solutions: "পরিষেবা", eotCranes: "ক্রেনের কাজ", roofProfile: "ছাদের মেশিন", automation: "অটোমেশন", knowledge: "জ্ঞান কেন্দ্র", news: "খবর", projects: "আমাদের কাজ", contact: "যোগাযোগ করুন", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা নির্বাচন করুন", close: "বন্ধ করুন", callUs: "আমাদের কল করুন" },
-  or: { home: "ହୋମ୍", aboutUs: "ଆମ ବିଷୟରେ", ourStory: "ଆମର କାହାଣୀ", team: "ଆମର ଟିମ୍", solutions: "ସେବା", eotCranes: "କ୍ରେନ୍ କାମ", roofProfile: "ଛାତ ମେସିନ୍", automation: "ଅଟୋମେସନ୍", knowledge: "ଜ୍ଞାନ କେନ୍ଦ୍ର", news: "ଖବର", projects: "ଆମର କାମ", contact: "ଯୋଗାଯୋଗ କରନ୍ତୁ", login: "ଲଗଇନ୍", logout: "ଲଗଆଉଟ୍", selectLang: "ଭାଷା ବାଛନ୍ତୁ", close: "ବନ୍ଦ କରନ୍ତୁ", callUs: "ଆମକୁ କଲ୍ କରନ୍ତୁ" },
-  ur: { home: "ہوم", aboutUs: "ہمارے بارے میں", ourStory: "ہماری کہانی", team: "ہماری ٹیم", solutions: "خدمات", eotCranes: "کرین کا کام", roofProfile: "چھت کی مشینیں", automation: "آٹومیشن", knowledge: "معلوماتی مرکز", news: "خبریں", projects: "ہمارے کام", contact: "رابطہ کریں", login: "لاگ ان", logout: "لاگ آؤٹ", selectLang: "زبان منتخب کریں", close: "بند کریں", callUs: "ہمیں کال کریں" },
-  as: { home: "হোম", aboutUs: "আমাৰ বিষয়ে", ourStory: "আমাৰ কাহিনী", team: "আমাৰ দল", solutions: "সেৱাসমূহ", eotCranes: "ক্ৰেনৰ কাম", roofProfile: "ছাদৰ মেচিন", automation: "অটোমেচন", knowledge: "জ্ঞান কেন্দ্ৰ", news: "খবৰ", projects: "আমাৰ কাম", contact: "যোগাযোগ কৰক", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা বাছক", close: "বন্ধ কৰক", callUs: "আমালৈ কল কৰক" },
-  bho: { home: "होम", aboutUs: "हमनी के बारे में", ourStory: "हमनी के कहानी", team: "हमनी के टीम", solutions: "सेवा", eotCranes: "क्रेन के काम", roofProfile: "छत के मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "खबर", projects: "हमनी के काम", contact: "संपर्क करीं", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनीं", close: "बंद करीं", callUs: "हमनी के कॉल करीं" }
+  en: { home: "Home", aboutUs: "About Us", ourStory: "Our Story", team: "Executive Team", solutions: "Solutions", eotCranes: "EOT Cranes", roofProfile: "Roof Profile", automation: "Factory Automation", knowledge: "Knowledge Base", news: "News & Media", projects: "Projects", contact: "Contact", login: "Sign In", logout: "Sign Out", selectLang: "Select Language", close: "Close", callUs: "Call Us", openChat: "Open Chat", openAccess: "Accessibility" },
+  hi: { home: "होम", aboutUs: "हमारे बारे में", ourStory: "हमारी कहानी", team: "हमारी टीम", solutions: "सेवाएं", eotCranes: "क्रेन का काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "समाचार", projects: "हमारे काम", contact: "संपर्क करें", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनें", close: "बंद करें", callUs: "हमें कॉल करें", openChat: "चैट खोलें", openAccess: "पहुंच मेनू" },
+  mr: { home: "मुख्यपृष्ठ", aboutUs: "आमच्याबद्दल", ourStory: "आमची कहाणी", team: "आमची टीम", solutions: "सेवा", eotCranes: "क्रेन काम", roofProfile: "छत मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "बातम्या", projects: "आमचे काम", contact: "संपर्क", login: "लॉग इन", logout: "बाहेर पडा", selectLang: "भाषा निवडा", close: "बंद करा", callUs: "आम्हाला कॉल करा", openChat: "चॅट उघडा", openAccess: "प्रवेशयोग्यता" },
+  te: { home: "హోమ్", aboutUs: "మా గురించి", ourStory: "మా కథ", team: "మా బృందం", solutions: "సేవలు", eotCranes: "క్రేన్ పని", roofProfile: "రూఫ్ యంత్రాలు", automation: "ఆటోమేషన్", knowledge: "జ్ఞాన కేంద్రం", news: "వార్తలు", projects: "మా పనులు", contact: "సంప్రదించండి", login: "లాగిన్", logout: "లాగ్అవుట్", selectLang: "భాషను ఎంచుకోండి", close: "మూసివేయి", callUs: "మాకు కాల్ చేయండి", openChat: "చాట్ తెరవండి", openAccess: "యాక్సెసిబిలిటీ" },
+  ta: { home: "முகப்பு", aboutUs: "எங்களைப் பற்றி", ourStory: "எங்கள் கதை", team: "எங்கள் குழு", solutions: "சேவைகள்", eotCranes: "கிரேன் வேலை", roofProfile: "கூரை இயந்திரங்கள்", automation: "ஆட்டோமேஷன்", knowledge: "அறிவு மையம்", news: "செய்திகள்", projects: "எங்கள் பணிகள்", contact: "தொடர்பு கொள்ள", login: "உள்நுழைக", logout: "வெளியேறு", selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்", close: "மூடு", callUs: "எங்களை அழைக்கவும்", openChat: "சாட் திற", openAccess: "அணுகல்தன்மை" },
+  kn: { home: "ಮುಖಪುಟ", aboutUs: "ನಮ್ಮ ಬಗ್ಗೆ", ourStory: "ನಮ್ಮ ಕಥೆ", team: "ನಮ್ಮ ತಂಡ", solutions: "ಸೇವೆಗಳು", eotCranes: "ಕ್ರೇನ್ ಕೆಲಸ", roofProfile: "ಛಾವಣಿ ಯಂತ್ರಗಳು", automation: "ಆಟೊಮೇಷನ್", knowledge: "ಜ್ಞಾನ ಕೇಂದ್ರ", news: "ಸುದ್ದಿ", projects: "ನಮ್ಮ ಕೆಲಸಗಳು", contact: "ಸಂಪರ್ಕಿಸಿ", login: "ಲಾಗಿನ್", logout: "ಲಾಗ್ ಔಟ್", selectLang: "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ", close: "ಮುಚ್ಚಿ", callUs: "ನಮಗೆ ಕರೆ ಮಾಡಿ", openChat: "ಚಾಟ್ ತೆರೆಯಿರಿ", openAccess: "ಪ್ರವೇಶಿಸುವಿಕೆ" },
+  ml: { home: "ഹോം", aboutUs: "ഞങ്ങളെക്കുറിച്ച്", ourStory: "ഞങ്ങളുടെ കഥ", team: "ഞങ്ങളുടെ ടീം", solutions: "സേവനങ്ങൾ", eotCranes: "ക്രെയിൻ ജോലി", roofProfile: "റൂഫ് മെഷീനുകൾ", automation: "ഓട്ടോമേഷൻ", knowledge: "വിവര കേന്ദ്രം", news: "വാർത്തകൾ", projects: "ഞങ്ങളുടെ ജോലികൾ", contact: "ബന്ധപ്പെടുക", login: "ലോഗിൻ", logout: "ലോഗൗട്ട്", selectLang: "ഭാഷ തിരഞ്ഞെടുക്കുക", close: "അടയ്ക്കുക", callUs: "ഞങ്ങളെ വിളിക്കുക", openChat: "ചാറ്റ് തുറക്കുക", openAccess: "പ്രവേശനക്ഷമത" },
+  gu: { home: "હોમ", aboutUs: "અમારા વિશે", ourStory: "અમારી વાર્તા", team: "અમારી ટીમ", solutions: "સેવાઓ", eotCranes: "ક્રેનનું કામ", roofProfile: "છતની મશીનો", automation: "ઓટોમેશન", knowledge: "જ્ઞાન કેન્દ્ર", news: "સમાચાર", projects: "અમારા કામ", contact: "સંપર્ક કરો", login: "લૉગ ઇન", logout: "લૉગ આઉટ", selectLang: "ભાષા પસંદ કરો", close: "બંધ કરો", callUs: "અમને કૉલ કરો", openChat: "ચેટ ખોલો", openAccess: "સુલભતા" },
+  pa: { home: "ਹੋਮ", aboutUs: "ਸਾਡੇ ਬਾਰੇ", ourStory: "ਸਾਡੀ ਕਹਾਣੀ", team: "ਸਾਡੀ ਟੀਮ", solutions: "ਸੇਵਾਵਾਂ", eotCranes: "ਕਰੇਨ ਦਾ ਕੰਮ", roofProfile: "ਛੱਤ ਦੀਆਂ ਮਸ਼ੀਨਾਂ", automation: "ਆਟੋਮੇਸ਼ਨ", knowledge: "ਗਿਆਨ ਕੇਂਦਰ", news: "ਖ਼ਬਰਾਂ", projects: "ਸਾਡੇ ਕੰਮ", contact: "ਸੰਪਰਕ ਕਰੋ", login: "ਲਾਗਇਨ", logout: "ਲਾਗ ਆਉਟ", selectLang: "ਭਾਸ਼ਾ ਚੁਣੋ", close: "ਬੰਦ ਕਰੋ", callUs: "ਸਾਨੂੰ ਕਾਲ ਕਰੋ", openChat: "ਚੈਟ ਖੋਲ੍ਹੋ", openAccess: "ਪਹੁੰਚਯੋਗਤਾ" },
+  bn: { home: "হোম", aboutUs: "আমাদের সম্পর্কে", ourStory: "আমাদের গল্প", team: "আমাদের দল", solutions: "পরিষেবা", eotCranes: "ক্রেনের কাজ", roofProfile: "ছাদের মেশিন", automation: "অটোমেশন", knowledge: "জ্ঞান কেন্দ্র", news: "খবর", projects: "আমাদের কাজ", contact: "যোগাযোগ করুন", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা নির্বাচন করুন", close: "বন্ধ করুন", callUs: "আমাদের কল করুন", openChat: "চ্যাট খুলুন", openAccess: "অ্যাক্সেসিবিলিটি" },
+  or: { home: "ହୋମ୍", aboutUs: "ଆମ ବିଷୟରେ", ourStory: "ଆମର କାହାଣୀ", team: "ଆମର ଟିମ୍", solutions: "ସେବା", eotCranes: "କ୍ରେନ୍ କାମ", roofProfile: "ଛାତ ମେସିନ୍", automation: "ଅଟୋମେସନ୍", knowledge: "ଜ୍ଞାନ କେନ୍ଦ୍ର", news: "ଖବର", projects: "ଆମର କାମ", contact: "ଯୋଗାଯୋଗ କରନ୍ତୁ", login: "ଲଗଇନ୍", logout: "ଲଗଆଉଟ୍", selectLang: "ଭାଷା ବାଛନ୍ତୁ", close: "ବନ୍ଦ କରନ୍ତୁ", callUs: "ଆମକୁ କଲ୍ କରନ୍ତୁ", openChat: "ଚାଟ୍ ଖୋଲନ୍ତୁ", openAccess: "ଆକ୍ସେସିବିଲିଟି" },
+  ur: { home: "ہوم", aboutUs: "ہمارے بارے میں", ourStory: "ہماری کہانی", team: "ہماری ٹیم", solutions: "خدمات", eotCranes: "کرین کا کام", roofProfile: "چھت کی مشینیں", automation: "آٹومیشن", knowledge: "معلوماتی مرکز", news: "خبریں", projects: "ہمارے کام", contact: "رابطہ کریں", login: "لاگ ان", logout: "لاگ آؤٹ", selectLang: "زبان منتخب کریں", close: "بند کریں", callUs: "ہمیں کال کریں", openChat: "چیٹ کھولیں", openAccess: "رسائی مینو" },
+  as: { home: "হোম", aboutUs: "আমাৰ বিষয়ে", ourStory: "আমাৰ কাহিনী", team: "আমাৰ দল", solutions: "সেৱাসমূহ", eotCranes: "ক্ৰেনৰ কাম", roofProfile: "ছাদৰ মেচিন", automation: "অটোমেচন", knowledge: "জ্ঞান কেন্দ্ৰ", news: "খবৰ", projects: "আমাৰ কাম", contact: "যোগাযোগ কৰক", login: "লগ ইন", logout: "লগ আউট", selectLang: "ভাষা বাছক", close: "বন্ধ কৰক", callUs: "আমালৈ কল কৰক", openChat: "চেট খোলক", openAccess: "এক্সেচিবিলিটি" },
+  bho: { home: "होम", aboutUs: "हमनी के बारे में", ourStory: "हमनी के कहानी", team: "हमनी के टीम", solutions: "सेवा", eotCranes: "क्रेन के काम", roofProfile: "छत के मशीन", automation: "ऑटोमेशन", knowledge: "ज्ञान केंद्र", news: "खबर", projects: "हमनी के काम", contact: "संपर्क करीं", login: "लॉग इन", logout: "लॉग आउट", selectLang: "भाषा चुनीं", close: "बंद करीं", callUs: "हमनी के कॉल करीं", openChat: "चैट खोलीं", openAccess: "एक्सेसिबिलिटी" }
 };
 
 const languagesList = [
@@ -40,10 +44,30 @@ export const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const [language, setLanguage] = useState(localStorage.getItem('nss_lang') || 'en');
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // UI Modal States
   const [isPhoneOpen, setIsPhoneOpen] = useState(false);
   const [isGlobeOpen, setIsGlobeOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isAccessOpen, setIsAccessOpen] = useState(false);
+
+  // Detect Dark Mode for Direct PNG Swapping
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+    setIsDarkMode(htmlElement.classList.contains('dark'));
+    
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          setIsDarkMode(htmlElement.classList.contains('dark'));
+        }
+      });
+    });
+    
+    observer.observe(htmlElement, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
 
   const handleLanguageSelect = (code) => {
     setLanguage(code);
@@ -73,25 +97,28 @@ export const Navbar = () => {
 
   const t = navTranslations[language] || navTranslations['en'];
 
+  const logoBlack = "https://i.postimg.cc/DfbqzJ0Y/download.png";
+  const logoWhite = "https://i.postimg.cc/QMHqk6NF/ft.png"; 
+
   return (
     <>
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40 w-full shadow-sm">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-40 w-full shadow-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             
-            {/* Left: NSS Logo */}
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                <img src="https://i.postimg.cc/DfbqzJ0Y/download.png" alt="NSS Logo" className="h-12 w-auto" />
+                <img 
+                  src={isDarkMode ? logoWhite : logoBlack} 
+                  alt="NSS Logo" 
+                  className="h-12 w-auto transition-opacity duration-300" 
+                />
               </Link>
             </div>
 
-            {/* Center: Desktop Links with Dropdowns */}
             <nav className="hidden md:flex space-x-6 lg:space-x-8 items-center justify-center flex-1">
-              
               <Link to="/" className="text-gray-900 font-semibold hover:text-[#0035A0] transition">{t.home}</Link>
 
-              {/* About Us Dropdown */}
               <div 
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('about')}
@@ -107,16 +134,15 @@ export const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute left-0 top-20 w-48 bg-white border border-gray-200 shadow-lg py-2 z-50"
+                      className="absolute left-0 top-20 w-48 bg-white border border-gray-200 shadow-lg py-2 z-50 rounded-sm"
                     >
-                      <Link to="/about" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0]">{t.ourStory}</Link>
-                      <Link to="/about" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0]">{t.team}</Link>
+                      <Link to="/about" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0] transition">{t.ourStory}</Link>
+                      <Link to="/about" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0] transition">{t.team}</Link>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* Solutions Dropdown */}
               <div 
                 className="relative group"
                 onMouseEnter={() => setActiveDropdown('solutions')}
@@ -132,11 +158,11 @@ export const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute left-0 top-20 w-56 bg-white border border-gray-200 shadow-lg py-2 z-50"
+                      className="absolute left-0 top-20 w-56 bg-white border border-gray-200 shadow-lg py-2 z-50 rounded-sm"
                     >
-                      <Link to="/eot-cranes" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0]">{t.eotCranes}</Link>
-                      <Link to="/roof-profile" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0]">{t.roofProfile}</Link>
-                      <Link to="/automation" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0]">{t.automation}</Link>
+                      <Link to="/eot-cranes" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0] transition">{t.eotCranes}</Link>
+                      <Link to="/roof-profile" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0] transition">{t.roofProfile}</Link>
+                      <Link to="/automation" className="block px-4 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-[#0035A0] transition">{t.automation}</Link>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -147,10 +173,19 @@ export const Navbar = () => {
 
             </nav>
 
-            {/* Right: Desktop Icons & Contact Button */}
+            {/* Desktop Icons Cluster */}
             <div className="hidden md:flex items-center space-x-6">
-              <button onClick={handleSearchNavigation} className="focus:outline-none">
+              
+              <button onClick={handleSearchNavigation} aria-label="Search" className="focus:outline-none">
                 <Search className="h-5 w-5 text-gray-700 hover:text-[#0035A0] transition" />
+              </button>
+
+              <button onClick={() => setIsAccessOpen(true)} aria-label={t.openAccess} className="focus:outline-none">
+                <Accessibility className="h-5 w-5 text-gray-700 hover:text-[#0035A0] transition" />
+              </button>
+
+              <button onClick={() => setIsChatOpen(true)} aria-label={t.openChat} className="focus:outline-none">
+                <MessageSquare className="h-5 w-5 text-gray-700 hover:text-[#0035A0] transition" />
               </button>
               
               <button onClick={() => setIsGlobeOpen(true)} className="flex items-center text-gray-700 group focus:outline-none">
@@ -163,12 +198,21 @@ export const Navbar = () => {
               </Link>
             </div>
 
-            {/* Mobile: Right Aligned Icon Cluster */}
-            <div className="flex md:hidden items-center space-x-5">
-              <button onClick={handleSearchNavigation} className="focus:outline-none"><Search className="h-6 w-6 text-gray-900" /></button>
-              <button onClick={() => setIsPhoneOpen(true)} className="focus:outline-none"><Phone className="h-6 w-6 text-gray-900" /></button>
-              <button onClick={() => setIsGlobeOpen(true)} className="focus:outline-none"><Globe className="h-6 w-6 text-gray-900" /></button>
-              <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-900 focus:outline-none">
+            {/* Mobile Icon Cluster (Strictly outside Hamburger) */}
+            <div className="flex md:hidden items-center space-x-4">
+              <button onClick={handleSearchNavigation} aria-label="Search" className="focus:outline-none">
+                <Search className="h-6 w-6 text-gray-900" />
+              </button>
+              <button onClick={() => setIsAccessOpen(true)} aria-label={t.openAccess} className="focus:outline-none">
+                <Accessibility className="h-6 w-6 text-gray-900" />
+              </button>
+              <button onClick={() => setIsChatOpen(true)} aria-label={t.openChat} className="focus:outline-none">
+                <MessageSquare className="h-6 w-6 text-gray-900" />
+              </button>
+              <button onClick={() => setIsGlobeOpen(true)} aria-label="Language" className="focus:outline-none">
+                <Globe className="h-6 w-6 text-gray-900" />
+              </button>
+              <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-900 focus:outline-none ml-2">
                 <Menu className="h-7 w-7" />
               </button>
             </div>
@@ -177,7 +221,9 @@ export const Navbar = () => {
         </div>
       </header>
 
-      {/* --- OVERLAYS AND MODALS --- */}
+      {/* --- RENDER CONTROLLED OVERLAYS --- */}
+      <AccessibilityMenu isOpen={isAccessOpen} onClose={() => setIsAccessOpen(false)} />
+      <FloatingChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       {/* 1. Contact Phone Modal */}
       <AnimatePresence>
@@ -269,24 +315,25 @@ export const Navbar = () => {
             transition={{ type: "tween", duration: 0.3 }}
             className="fixed inset-0 z-50 bg-white flex flex-col"
           >
-            {/* Mobile Drawer Header */}
             <div className="flex items-center justify-between h-20 px-4 border-b border-gray-200">
               <div className="flex-shrink-0">
-                <img src="https://i.postimg.cc/DfbqzJ0Y/download.png" alt="NSS Logo" className="h-10 w-auto" />
+                <img 
+                  src={isDarkMode ? logoWhite : logoBlack} 
+                  alt="NSS Logo" 
+                  className="h-10 w-auto transition-opacity duration-300" 
+                />
               </div>
               <button onClick={() => setIsMobileMenuOpen(false)} className="text-gray-900 focus:outline-none bg-gray-100 p-2 rounded-sm">
                 <X className="h-6 w-6" />
               </button>
             </div>
 
-            {/* Mobile Drawer Links with Accordions */}
             <div className="flex-1 overflow-y-auto py-6 px-4 flex flex-col space-y-2">
               
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-between py-4 text-xl font-bold text-gray-900 border-b border-gray-100">
                 {t.home} <ChevronRight className="h-5 w-5 text-gray-400" />
               </Link>
 
-              {/* About Accordion */}
               <div>
                 <button onClick={() => toggleMobileExpand('about')} className="flex items-center justify-between w-full py-4 text-xl font-bold text-gray-900 border-b border-gray-100">
                   {t.aboutUs} <ChevronDown className={`h-5 w-5 text-gray-400 transition-transform ${mobileExpanded === 'about' ? 'rotate-180' : ''}`} />
@@ -301,7 +348,6 @@ export const Navbar = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Solutions Accordion */}
               <div>
                 <button onClick={() => toggleMobileExpand('solutions')} className="flex items-center justify-between w-full py-4 text-xl font-bold text-gray-900 border-b border-gray-100">
                   {t.solutions} <ChevronDown className={`h-5 w-5 text-gray-400 transition-transform ${mobileExpanded === 'solutions' ? 'rotate-180' : ''}`} />
@@ -336,7 +382,6 @@ export const Navbar = () => {
 
             </div>
 
-            {/* Mobile Drawer Bottom Contact Button */}
             <div className="p-4 border-t border-gray-200 bg-gray-50">
               <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-center bg-[#0035A0] text-white py-4 font-bold text-lg rounded-sm hover:bg-blue-800 transition">
                 {t.contact}

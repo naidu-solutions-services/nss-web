@@ -6,20 +6,20 @@ import { db } from '../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
 const homeTranslations = {
-  en: { hero: "One-stop provider from design to installation for Factory Machines and Services.", legacy: "A legacy of good work", years: "31+", yearsText: "Years of Trust", factories: "6,000+", factoriesText: "Active Factories", machines: "100,000+", machinesText: "Machines Fixed", values: "Our values", val1: "Good Work", val2: "Team Work", val3: "True Partners", solutions: "Solutions", sol1: "Crane Services", sol2: "Roof Machines", sol3: "Factory Automation", vers: "Greatness through versatility", versSub: "We serve customers in all types of factory work.", explore: "Explore more", projects: "Projects", viewAll: "View all projects", updates: "Latest updates", readAll: "Read all news", reportTitle: "Report Machine Fault", fName: "Factory Name", fPhone: "Phone Number", fIssue: "What is the problem?", submit: "Send Report", success: "Report sent successfully." },
-  hi: { hero: "फैक्ट्री मशीनों और सेवाओं के लिए डिजाइन से लगाने तक का पूरा समाधान।", legacy: "अच्छे काम की पहचान", years: "31+", yearsText: "भरोसे के साल", factories: "6,000+", factoriesText: "चालू कारखाने", machines: "100,000+", machinesText: "ठीक की गई मशीनें", values: "हमारे विचार", val1: "अच्छा काम", val2: "टीम का काम", val3: "सच्चे साथी", solutions: "सेवाएं", sol1: "क्रेन का काम", sol2: "छत की मशीनें", sol3: "फैक्ट्री ऑटोमेशन", vers: "हर काम में माहिर", versSub: "हम हर तरह के फैक्ट्री काम में ग्राहकों की मदद करते हैं।", explore: "और जानें", projects: "हमारे काम", viewAll: "सब काम देखें", updates: "नई खबर", readAll: "सब खबर पढ़ें", reportTitle: "मशीन की खराबी बताएं", fName: "फैक्ट्री का नाम", fPhone: "फोन नंबर", fIssue: "क्या समस्या है?", submit: "रिपोर्ट भेजें", success: "रिपोर्ट भेज दी गई।" },
-  mr: { hero: "फॅक्टरी मशीन आणि सेवांसाठी डिझाइनपासून फिटिंगपर्यंत संपूर्ण काम.", legacy: "चांगल्या कामाची ओळख", years: "31+", yearsText: "विश्वासाची वर्षे", factories: "6,000+", factoriesText: "चालू कारखाने", machines: "100,000+", machinesText: "दुरुस्त मशीन", values: "आमचे विचार", val1: "चांगले काम", val2: "टीम वर्क", val3: "खरे साथीदार", solutions: "सेवा", sol1: "क्रेन काम", sol2: "छताच्या मशीन", sol3: "फॅक्टरी ऑटोमेशन", vers: "प्रत्येक कामात हुशार", versSub: "आम्ही सर्व प्रकारच्या फॅक्टरी कामात ग्राहकांना मदत करतो.", explore: "अधिक जाणून घ्या", projects: "आमचे काम", viewAll: "सर्व कामे पहा", updates: "नवीन माहिती", readAll: "सर्व बातम्या वाचा", reportTitle: "मशीन बिघाड सांगा", fName: "फॅक्टरीचे नाव", fPhone: "फोन नंबर", fIssue: "काय अडचण आहे?", submit: "माहिती पाठवा", success: "माहिती पाठवली." },
-  te: { hero: "ఫ్యాక్టరీ యంత్రాలు మరియు సేవల కోసం డిజైన్ నుండి ఫిట్టింగ్ వరకు పూర్తి పని.", legacy: "మంచి పని గుర్తింపు", years: "31+", yearsText: "నమ్మకం సంవత్సరాలు", factories: "6,000+", factoriesText: "నడుస్తున్న ఫ్యాక్టరీలు", machines: "100,000+", machinesText: "బాగుచేసిన యంత్రాలు", values: "మా ఆలోచనలు", val1: "మంచి పని", val2: "కలిసి పనిచేయడం", val3: "నిజమైన స్నేహితులు", solutions: "సేవలు", sol1: "క్రేన్ పని", sol2: "రూఫ్ యంత్రాలు", sol3: "ఫ్యాక్టరీ ఆటోమేషన్", vers: "అన్ని పనులలో నేర్పు", versSub: "మేము అన్ని రకాల ఫ్యాక్టరీ పనులలో సహాయం చేస్తాము.", explore: "మరింత తెలుసుకోండి", projects: "మా పనులు", viewAll: "అన్ని పనులు చూడండి", updates: "కొత్త వార్తలు", readAll: "వార్తలు చదవండి", reportTitle: "యంత్రం లోపం చెప్పండి", fName: "ఫ్యాక్టరీ పేరు", fPhone: "ఫోన్ నంబర్", fIssue: "సమస్య ఏమిటి?", submit: "పంపండి", success: "పంపబడింది." },
-  ta: { hero: "தொழிற்சாலை இயந்திரங்கள் மற்றும் சேவைகளுக்கான முழுமையான தீர்வு.", legacy: "நல்ல வேலையின் அடையாளம்", years: "31+", yearsText: "நம்பிக்கை ஆண்டுகள்", factories: "6,000+", factoriesText: "இயங்கும் தொழிற்சாலைகள்", machines: "100,000+", machinesText: "சரிசெய்யப்பட்ட இயந்திரங்கள்", values: "எங்கள் எண்ணங்கள்", val1: "நல்ல வேலை", val2: "குழு வேலை", val3: "உண்மையான நண்பர்கள்", solutions: "சேவைகள்", sol1: "கிரேன் வேலை", sol2: "கூரையின் இயந்திரங்கள்", sol3: "தொழிற்சாலை ஆட்டோமேஷன்", vers: "அனைத்து வேலைகளிலும் சிறப்பு", versSub: "அனைத்து வகையான தொழிற்சாலை பணிகளிலும் நாங்கள் உதவுகிறோம்.", explore: "மேலும் அறிய", projects: "எங்கள் பணிகள்", viewAll: "அனைத்து பணிகளையும் காண்க", updates: "புதிய செய்தி", readAll: "அனைத்து செய்திகளையும் படிக்கவும்", reportTitle: "இயந்திர பழுதை தெரிவிக்கவும்", fName: "தொழிற்சாலை பெயர்", fPhone: "போன் எண்", fIssue: "என்ன பிரச்சனை?", submit: "அனுப்பு", success: "அனுப்பப்பட்டது." },
-  kn: { hero: "ಕಾರ್ಖಾನೆ ಯಂತ್ರಗಳು ಮತ್ತು ಸೇವೆಗಳಿಗೆ ಸಂಪೂರ್ಣ ಪರಿಹಾರ.", legacy: "ಒಳ್ಳೆಯ ಕೆಲಸದ ಗುರುತು", years: "31+", yearsText: "ನಂಬಿಕೆಯ ವರ್ಷಗಳು", factories: "6,000+", factoriesText: "ಚಾಲನೆಯಲ್ಲಿರುವ ಕಾರ್ಖಾನೆಗಳು", machines: "100,000+", machinesText: "ದುರಸ್ತಿ ಮಾಡಿದ ಯಂತ್ರಗಳು", values: "ನಮ್ಮ ಆಲೋಚನೆಗಳು", val1: "ಒಳ್ಳೆಯ ಕೆಲಸ", val2: "ತಂಡದ ಕೆಲಸ", val3: "ನಿಜವಾದ ಸ್ನೇಹಿತರು", solutions: "ಸೇವೆಗಳು", sol1: "ಕ್ರೇನ್ ಕೆಲಸ", sol2: "ಛಾವಣಿಯ ಯಂತ್ರಗಳು", sol3: "ಫ್ಯಾಕ್ಟರಿ ಆಟೊಮೇಷನ್", vers: "ಎಲ್ಲಾ ಕೆಲಸಗಳಲ್ಲಿ ಪರಿಣತಿ", versSub: "ನಾವು ಎಲ್ಲಾ ರೀತಿಯ ಕಾರ್ಖಾನೆ ಕೆಲಸಗಳಲ್ಲಿ ಸಹಾಯ ಮಾಡುತ್ತೇವೆ.", explore: "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ", projects: "ನಮ್ಮ ಕೆಲಸಗಳು", viewAll: "ಎಲ್ಲಾ ಕೆಲಸಗಳನ್ನು ನೋಡಿ", updates: "ಹೊಸ ಸುದ್ದಿ", readAll: "ಎಲ್ಲಾ ಸುದ್ದಿ ಓದಿ", reportTitle: "ಯಂತ್ರದ ದೋಷವನ್ನು ತಿಳಿಸಿ", fName: "ಕಾರ್ಖಾನೆಯ ಹೆಸರು", fPhone: "ಫೋನ್ ಸಂಖ್ಯೆ", fIssue: "ಸಮಸ್ಯೆ ಏನು?", submit: "ಕಳುಹಿಸಿ", success: "ಕಳುಹಿಸಲಾಗಿದೆ." },
-  ml: { hero: "ഫാക്ടറി മെഷീനുകൾക്കും സേവനങ്ങൾക്കുമുള്ള പൂർണ്ണ പരിഹാരം.", legacy: "നല്ല ജോലിയുടെ അടയാളം", years: "31+", yearsText: "വിശ്വാസത്തിന്റെ വർഷങ്ങൾ", factories: "6,000+", factoriesText: "പ്രവർത്തിക്കുന്ന ഫാക്ടറികൾ", machines: "100,000+", machinesText: "ശരിയാക്കിയ മെഷീനുകൾ", values: "ഞങ്ങളുടെ ചിന്തകൾ", val1: "നല്ല ജോലി", val2: "ടീം വർക്ക്", val3: "യഥാർത്ഥ പങ്കാളികൾ", solutions: "സേവനങ്ങൾ", sol1: "ക്രെയിൻ ജോലി", sol2: "റൂഫ് മെഷീനുകൾ", sol3: "ഫാക്ടറി ഓട്ടോമേഷൻ", vers: "എല്ലാ ജോലികളിലും മിടുക്ക്", versSub: "എല്ലാത്തരം ഫാക്ടറി ജോലികളിലും ഞങ്ങൾ സഹായിക്കുന്നു.", explore: "കൂടുതൽ അറിയുക", projects: "ഞങ്ങളുടെ ജോലികൾ", viewAll: "എല്ലാ ജോലികളും കാണുക", updates: "പുതിയ വാർത്തകൾ", readAll: "എല്ലാ വാർത്തകളും വായിക്കുക", reportTitle: "മെഷീൻ തകരാർ അറിയിക്കുക", fName: "ഫാക്ടറിയുടെ പേര്", fPhone: "ഫോൺ നമ്പർ", fIssue: "എന്താണ് പ്രശ്നം?", submit: "അയയ്ക്കുക", success: "അയച്ചു." },
-  gu: { hero: "ફેક્ટરી મશીનો અને સેવાઓ માટે સંપૂર્ણ ઉકેલ.", legacy: "સારા કામની ઓળખ", years: "31+", yearsText: "વિશ્વાસના વર્ષો", factories: "6,000+", factoriesText: "ચાલુ ફેક્ટરીઓ", machines: "100,000+", machinesText: "રિપેર કરેલ મશીનો", values: "અમારા વિચારો", val1: "સારું કામ", val2: "ટીમ વર્ક", val3: "સાચા સાથી", solutions: "સેવાઓ", sol1: "ક્રેનનું કામ", sol2: "છતની મશીનો", sol3: "ફેક્ટરી ઓટોમેશન", vers: "દરેક કામમાં નિપુણતા", versSub: "અમે તમામ પ્રકારના ફેક્ટરી કામમાં મદદ કરીએ છીએ.", explore: "વધુ જાણો", projects: "અમારા કામ", viewAll: "બધા કામ જુઓ", updates: "નવા સમાચાર", readAll: "બધા સમાચાર વાંચો", reportTitle: "મશીનની ખરાબી જણાવો", fName: "ફેક્ટરીનું નામ", fPhone: "ફોન નંબર", fIssue: "શું સમસ્યા છે?", submit: "મોકલો", success: "મોકલાઈ ગયું." },
-  pa: { hero: "ਫੈਕਟਰੀ ਮਸ਼ੀਨਾਂ ਅਤੇ ਸੇਵਾਵਾਂ ਲਈ ਪੂਰਾ ਹੱਲ.", legacy: "ਚੰਗੇ ਕੰਮ ਦੀ ਪਛਾਣ", years: "31+", yearsText: "ਵਿਸ਼ਵਾਸ ਦੇ ਸਾਲ", factories: "6,000+", factoriesText: "ਚਾਲੂ ਫੈਕਟਰੀਆਂ", machines: "100,000+", machinesText: "ਠੀਕ ਕੀਤੀਆਂ ਮਸ਼ੀਨਾਂ", values: "ਸਾਡੇ ਵਿਚਾਰ", val1: "ਚੰਗਾ ਕੰਮ", val2: "ਟੀਮ ਵਰਕ", val3: "ਸੱਚੇ ਸਾਥੀ", solutions: "ਸੇਵਾਵਾਂ", sol1: "ਕਰੇਨ ਦਾ ਕੰਮ", sol2: "ਛੱਤ ਦੀਆਂ ਮਸ਼ੀਨਾਂ", sol3: "ਫੈਕਟਰੀ ਆਟੋਮੇਸ਼ਨ", vers: "ਹਰ ਕੰਮ ਵਿੱਚ ਮਾਹਰ", versSub: "ਅਸੀਂ ਹਰ ਤਰ੍ਹਾਂ ਦੇ ਫੈਕਟਰੀ ਕੰਮ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਾਂ.", explore: "ਹੋਰ ਜਾਣੋ", projects: "ਸਾਡੇ ਕੰਮ", viewAll: "ਸਾਰੇ ਕੰਮ ਦੇਖੋ", updates: "ਨਵੀਂ ਖ਼ਬਰ", readAll: "ਸਾਰੀਆਂ ਖ਼ਬਰਾਂ ਪੜ੍ਹੋ", reportTitle: "ਮਸ਼ੀਨ ਦੀ ਖਰਾਬੀ ਦੱਸੋ", fName: "ਫੈਕਟਰੀ ਦਾ ਨਾਂ", fPhone: "ਫੋਨ ਨੰਬਰ", fIssue: "ਕੀ ਸਮੱਸਿਆ ਹੈ?", submit: "ਭੇਜੋ", success: "ਭੇਜ ਦਿੱਤਾ ਗਿਆ." },
-  bn: { hero: "কারখানার মেশিন এবং পরিষেবার জন্য সম্পূর্ণ সমাধান।", legacy: "ভালো কাজের পরিচয়", years: "31+", yearsText: "বিশ্বাসের বছর", factories: "6,000+", factoriesText: "চলমান কারখানা", machines: "100,000+", machinesText: "মেরামত করা মেশিন", values: "আমাদের চিন্তা", val1: "ভালো কাজ", val2: "টিম ওয়ার্ক", val3: "সত্যিকারের সঙ্গী", solutions: "পরিষেবা", sol1: "ক্রেনের কাজ", sol2: "ছাদের মেশিন", sol3: "কারখানা অটোমেশন", vers: "সব কাজে পারদর্শী", versSub: "আমরা সব ধরনের কারখানার কাজে সাহায্য করি।", explore: "আরও জানুন", projects: "আমাদের কাজ", viewAll: "সব কাজ দেখুন", updates: "নতুন খবর", readAll: "সব খবর পড়ুন", reportTitle: "মেশিনের সমস্যা জানান", fName: "কারখানার নাম", fPhone: "ফোন নম্বর", fIssue: "সমস্যা কী?", submit: "পাঠান", success: "পাঠানো হয়েছে।" },
-  or: { hero: "କାରଖାନା ମେସିନ୍ ଏବଂ ସେବା ପାଇଁ ସମ୍ପୂର୍ଣ୍ଣ ସମାଧାନ.", legacy: "ଭଲ କାମର ପରିଚୟ", years: "31+", yearsText: "ବିଶ୍ୱାସର ବର୍ଷ", factories: "6,000+", factoriesText: "ଚାଲୁଥିବା କାରଖାନା", machines: "100,000+", machinesText: "ସଜଡା ଯାଇଥିବା ମେସିନ୍", values: "ଆମର ବିଚାର", val1: "ଭଲ କାମ", val2: "ଟିମ୍ ୱାର୍କ", val3: "ପ୍ରକୃତ ସାଥୀ", solutions: "ସେବା", sol1: "କ୍ରେନ୍ କାମ", sol2: "ଛାତ ମେସିନ୍", sol3: "କାରଖାନା ଅଟୋମେସନ୍", vers: "ସବୁ କାମରେ ପାରଙ୍ଗମ", versSub: "ଆମେ ସବୁ ପ୍ରକାର କାରଖାନା କାମରେ ସାହାଯ୍ୟ କରୁ.", explore: "ଅଧିକ ଜାଣନ୍ତୁ", projects: "ଆମର କାମ", viewAll: "ସବୁ କାମ ଦେଖନ୍ତୁ", updates: "ନୂଆ ଖବର", readAll: "ସବୁ ଖବର ପଢନ୍ତୁ", reportTitle: "ମେସିନ୍ ଖରାପ ଜଣାନ୍ତୁ", fName: "କାରଖାନା ନାମ", fPhone: "ଫୋନ୍ ନମ୍ବର", fIssue: "ସମସ୍ୟା କଣ?", submit: "ପଠାନ୍ତୁ", success: "ପଠାଗଲା." },
-  ur: { hero: "فیکٹری مشینوں اور خدمات کے لیے مکمل حل۔", legacy: "اچھے کام کی پہچان", years: "31+", yearsText: "اعتماد کے سال", factories: "6,000+", factoriesText: "چلتی فیکٹریاں", machines: "100,000+", machinesText: "ٹھیک کی گئی مشینیں", values: "ہمارے خیالات", val1: "اچھا کام", val2: "ٹیم ورک", val3: "سچے ساتھی", solutions: "خدمات", sol1: "کرین کا کام", sol2: "چھت کی مشینیں", sol3: "فیکٹری آٹومیشن", vers: "ہر کام میں ماہر", versSub: "ہم ہر طرح کے فیکٹری کے کام میں مدد کرتے ہیں۔", explore: "مزید جانیں", projects: "ہمارے کام", viewAll: "تمام کام دیکھیں", updates: "نئی خبریں", readAll: "تمام خبریں پڑھیں", reportTitle: "مشین کی خرابی بتائیں", fName: "فیکٹری کا نام", fPhone: "فون نمبر", fIssue: "کیا مسئلہ ہے؟", submit: "بھیجیں", success: "بھیج دیا گیا۔" },
-  as: { hero: "কাৰখানাৰ মেচিন আৰু সেৱাৰ বাবে সম্পূৰ্ণ সমাধান.", legacy: "ভাল কামৰ পৰিচয়", years: "31+", yearsText: "বিশ্বাসৰ বছৰ", factories: "6,000+", factoriesText: "চলি থকা কাৰখানা", machines: "100,000+", machinesText: "মেৰামতি কৰা মেচিন", values: "আমাৰ বিচাৰ", val1: "ভাল কাম", val2: "টিম ৱৰ্ক", val3: "প্ৰকৃত সংগী", solutions: "সেৱাসমূহ", sol1: "ক্ৰেনৰ কাম", sol2: "ছাদৰ মেচিন", sol3: "কাৰখানা অটোমেচন", vers: "সকলো কামতে পাৰ্গত", versSub: "আমি সকলো ধৰণৰ কাৰখানাৰ কামত সহায় কৰোঁ.", explore: "অধিক জানক", projects: "আমাৰ কাম", viewAll: "সকলো কাম চাওক", updates: "নতুন খবৰ", readAll: "সকলো খবৰ পঢ়ক", reportTitle: "মেচিনৰ বিজুতি জনাওক", fName: "কাৰখানাৰ নাম", fPhone: "ফোন নম্বৰ", fIssue: "সমস্যা কি?", submit: "পঠাওক", success: "পঠোৱা হ'ল." },
-  bho: { hero: "फैक्टरी मशीन अउरी सेवा खातिर पूरा समाधान।", legacy: "बढ़िया काम के पहचान", years: "31+", yearsText: "भरोसा के साल", factories: "6,000+", factoriesText: "चालू कारखाना", machines: "100,000+", machinesText: "ठीक कइल मशीन", values: "हमनी के बिचार", val1: "बढ़िया काम", val2: "टीम के काम", val3: "सच्चा साथी", solutions: "सेवा", sol1: "क्रेन के काम", sol2: "छत के मशीन", sol3: "फैक्टरी ऑटोमेशन", vers: "सब काम में माहिर", versSub: "हमनी के हर तरह के फैक्टरी काम में मदद करीले।", explore: "अउरी जानीं", projects: "हमनी के काम", viewAll: "सब काम देखीं", updates: "नया खबर", readAll: "सब खबर पढ़ीं", reportTitle: "मशीन के खराबी बताईं", fName: "फैक्टरी के नाम", fPhone: "फोन नंबर", fIssue: "का दिक्कत बा?", submit: "भेजीं", success: "भेज दिहल गइल।" }
+  en: { hero: "One-stop provider from design to installation for Factory Machines and Services.", legacy: "A legacy of good work", years: "31+", yearsText: "Years of Trust", factories: "6,000+", factoriesText: "Active Factories", machines: "100,000+", machinesText: "Machines Fixed", values: "Our values", val1: "Good Work", val2: "Team Work", val3: "True Partners", solutions: "Solutions", sol1: "Crane Services", sol2: "Roof Machines", sol3: "Factory Automation", vers: "Greatness through versatility", versSub: "We serve customers in all types of factory work.", explore: "Explore more", projects: "Projects", viewAll: "View all projects", updates: "Latest updates", readAll: "Read all news", reportTitle: "Report Machine Fault", fName: "Factory Name", fPhone: "Phone Number", fIssue: "What is the problem?", submit: "Send Report", success: "Report sent successfully.", safetyTitle: "Engineered for Safety and Speed", safetySub: "We use the best tools and parts so your factory never stops.", safeWork: "Safe Work", expertTeam: "Expert Team", trustSupport: "Trusted Support" },
+  hi: { hero: "फैक्ट्री मशीनों और सेवाओं के लिए डिजाइन से लगाने तक का पूरा समाधान।", legacy: "अच्छे काम की पहचान", years: "31+", yearsText: "भरोसे के साल", factories: "6,000+", factoriesText: "चालू कारखाने", machines: "100,000+", machinesText: "ठीक की गई मशीनें", values: "हमारे विचार", val1: "अच्छा काम", val2: "टीम का काम", val3: "सच्चे साथी", solutions: "सेवाएं", sol1: "क्रेन का काम", sol2: "छत की मशीनें", sol3: "फैक्ट्री ऑटोमेशन", vers: "हर काम में माहिर", versSub: "हम हर तरह के फैक्ट्री काम में ग्राहकों की मदद करते हैं।", explore: "और जानें", projects: "हमारे काम", viewAll: "सब काम देखें", updates: "नई खबर", readAll: "सब खबर पढ़ें", reportTitle: "मशीन की खराबी बताएं", fName: "फैक्ट्री का नाम", fPhone: "फोन नंबर", fIssue: "क्या समस्या है?", submit: "रिपोर्ट भेजें", success: "रिपोर्ट भेज दी गई।", safetyTitle: "सुरक्षा और गति के लिए निर्मित", safetySub: "हम सबसे अच्छे उपकरणों का उपयोग करते हैं ताकि आपकी फैक्ट्री कभी न रुके।", safeWork: "सुरक्षित काम", expertTeam: "विशेषज्ञ टीम", trustSupport: "भरोसेमंद समर्थन" },
+  mr: { hero: "फॅक्टरी मशीन आणि सेवांसाठी डिझाइनपासून फिटिंगपर्यंत संपूर्ण काम.", legacy: "चांगल्या कामाची ओळख", years: "31+", yearsText: "विश्वासाची वर्षे", factories: "6,000+", factoriesText: "चालू कारखाने", machines: "100,000+", machinesText: "दुरुस्त मशीन", values: "आमचे विचार", val1: "चांगले काम", val2: "टीम वर्क", val3: "खरे साथीदार", solutions: "सेवा", sol1: "क्रेन काम", sol2: "छताच्या मशीन", sol3: "फॅक्टरी ऑटोमेशन", vers: "प्रत्येक कामात हुशार", versSub: "आम्ही सर्व प्रकारच्या फॅक्टरी कामात ग्राहकांना मदत करतो.", explore: "अधिक जाणून घ्या", projects: "आमचे काम", viewAll: "सर्व कामे पहा", updates: "नवीन माहिती", readAll: "सर्व बातम्या वाचा", reportTitle: "मशीन बिघाड सांगा", fName: "फॅक्टरीचे नाव", fPhone: "फोन नंबर", fIssue: "काय अडचण आहे?", submit: "माहिती पाठवा", success: "माहिती पाठवली.", safetyTitle: "सुरक्षा आणि वेगासाठी बनवलेले", safetySub: "तुमची फॅक्टरी कधीही थांबू नये म्हणून आम्ही सर्वोत्तम साधने वापरतो.", safeWork: "सुरक्षित काम", expertTeam: "तज्ञ टीम", trustSupport: "विश्वसनीय समर्थन" },
+  te: { hero: "ఫ్యాక్టరీ యంత్రాలు మరియు సేవల కోసం డిజైన్ నుండి ఫిట్టింగ్ వరకు పూర్తి పని.", legacy: "మంచి పని గుర్తింపు", years: "31+", yearsText: "నమ్మకం సంవత్సరాలు", factories: "6,000+", factoriesText: "నడుస్తున్న ఫ్యాక్టరీలు", machines: "100,000+", machinesText: "బాగుచేసిన యంత్రాలు", values: "మా ఆలోచనలు", val1: "మంచి పని", val2: "కలిసి పనిచేయడం", val3: "నిజమైన స్నేహితులు", solutions: "సేవలు", sol1: "క్రేన్ పని", sol2: "రూఫ్ యంత్రాలు", sol3: "ఫ్యాక్టరీ ఆటోమేషన్", vers: "అన్ని పనులలో నేర్పు", versSub: "మేము అన్ని రకాల ఫ్యాక్టరీ పనులలో సహాయం చేస్తాము.", explore: "మరింత తెలుసుకోండి", projects: "మా పనులు", viewAll: "అన్ని పనులు చూడండి", updates: "కొత్త వార్తలు", readAll: "వార్తలు చదవండి", reportTitle: "యంత్రం లోపం చెప్పండి", fName: "ఫ్యాక్టరీ పేరు", fPhone: "ఫోన్ నంబర్", fIssue: "సమస్య ఏమిటి?", submit: "పంపండి", success: "పంపబడింది.", safetyTitle: "భద్రత మరియు వేగం కోసం రూపొందించబడింది", safetySub: "మీ ఫ్యాక్టరీ ఎప్పుడూ ఆగకుండా మేము ఉత్తమ సాధనాలను ఉపయోగిస్తాము.", safeWork: "సురక్షిత పని", expertTeam: "నిపుణుల బృందం", trustSupport: "నమ్మకమైన మద్దతు" },
+  ta: { hero: "தொழிற்சாலை இயந்திரங்கள் மற்றும் சேவைகளுக்கான முழுமையான தீர்வு.", legacy: "நல்ல வேலையின் அடையாளம்", years: "31+", yearsText: "நம்பிக்கை ஆண்டுகள்", factories: "6,000+", factoriesText: "இயங்கும் தொழிற்சாலைகள்", machines: "100,000+", machinesText: "சரிசெய்யப்பட்ட இயந்திரங்கள்", values: "எங்கள் எண்ணங்கள்", val1: "நல்ல வேலை", val2: "குழு வேலை", val3: "உண்மையான நண்பர்கள்", solutions: "சேவைகள்", sol1: "கிரேன் வேலை", sol2: "கூரையின் இயந்திரங்கள்", sol3: "தொழிற்சாலை ஆட்டோமேஷன்", vers: "அனைத்து வேலைகளிலும் சிறப்பு", versSub: "அனைத்து வகையான தொழிற்சாலை பணிகளிலும் நாங்கள் உதவுகிறோம்.", explore: "மேலும் அறிய", projects: "எங்கள் பணிகள்", viewAll: "அனைத்து பணிகளையும் காண்க", updates: "புதிய செய்தி", readAll: "அனைத்து செய்திகளையும் படிக்கவும்", reportTitle: "இயந்திர பழுதை தெரிவிக்கவும்", fName: "தொழிற்சாலை பெயர்", fPhone: "போன் எண்", fIssue: "என்ன பிரச்சனை?", submit: "அனுப்பு", success: "அனுப்பப்பட்டது.", safetyTitle: "பாதுகாப்பு மற்றும் வேகத்திற்காக உருவாக்கப்பட்டது", safetySub: "உங்கள் தொழிற்சாலை எங்கும் நிற்காமல் இருக்க சிறந்த கருவிகளைப் பயன்படுத்துகிறோம்.", safeWork: "பாதுகாப்பான வேலை", expertTeam: "நிபுணர் குழு", trustSupport: "நம்பகமான ஆதரவு" },
+  kn: { hero: "ಕಾರ್ಖಾನೆ ಯಂತ್ರಗಳು ಮತ್ತು ಸೇವೆಗಳಿಗೆ ಸಂಪೂರ್ಣ ಪರಿಹಾರ.", legacy: "ಒಳ್ಳೆಯ ಕೆಲಸದ ಗುರುತು", years: "31+", yearsText: "ನಂಬಿಕೆಯ ವರ್ಷಗಳು", factories: "6,000+", factoriesText: "ಚಾಲನೆಯಲ್ಲಿರುವ ಕಾರ್ಖಾನೆಗಳು", machines: "100,000+", machinesText: "ದುರಸ್ತಿ ಮಾಡಿದ ಯಂತ್ರಗಳು", values: "ನಮ್ಮ ಆಲೋಚನೆಗಳು", val1: "ಒಳ್ಳೆಯ ಕೆಲಸ", val2: "ತಂಡದ ಕೆಲಸ", val3: "ನಿಜವಾದ ಸ್ನೇಹಿತರು", solutions: "ಸೇವೆಗಳು", sol1: "ಕ್ರೇನ್ ಕೆಲಸ", sol2: "ಛಾವಣಿಯ ಯಂತ್ರಗಳು", sol3: "ಫ್ಯಾಕ್ಟರಿ ಆಟೊಮೇಷನ್", vers: "ಎಲ್ಲಾ ಕೆಲಸಗಳಲ್ಲಿ ಪರಿಣತಿ", versSub: "ನಾವು ಎಲ್ಲಾ ರೀತಿಯ ಕಾರ್ಖಾನೆ ಕೆಲಸಗಳಲ್ಲಿ ಸಹಾಯ ಮಾಡುತ್ತೇವೆ.", explore: "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ", projects: "ನಮ್ಮ ಕೆಲಸಗಳು", viewAll: "ಎಲ್ಲಾ ಕೆಲಸಗಳನ್ನು ನೋಡಿ", updates: "ಹೊಸ ಸುದ್ದಿ", readAll: "ಎಲ್ಲಾ ಸುದ್ದಿ ಓದಿ", reportTitle: "ಯಂತ್ರದ ದೋಷವನ್ನು ತಿಳಿಸಿ", fName: "ಕಾರ್ಖಾನೆಯ ಹೆಸರು", fPhone: "ಫೋನ್ ಸಂಖ್ಯೆ", fIssue: "ಸಮಸ್ಯೆ ಏನು?", submit: "ಕಳುಹಿಸಿ", success: "ಕಳುಹಿಸಲಾಗಿದೆ.", safetyTitle: "ಸುರಕ್ಷತೆ ಮತ್ತು ವೇಗಕ್ಕಾಗಿ ನಿರ್ಮಿಸಲಾಗಿದೆ", safetySub: "ನಿಮ್ಮ ಕಾರ್ಖಾನೆ ಎಂದಿಗೂ ನಿಲ್ಲದಿರಲು ನಾವು ಉತ್ತಮ ಸಾಧನಗಳನ್ನು ಬಳಸುತ್ತೇವೆ.", safeWork: "ಸುರಕ್ಷಿತ ಕೆಲಸ", expertTeam: "ತಜ್ಞ ತಂಡ", trustSupport: "ವಿಶ್ವಾಸಾರ್ಹ ಬೆಂಬಲ" },
+  ml: { hero: "ഫാക്ടറി മെഷീനുകൾക്കും സേവനങ്ങൾക്കുമുള്ള പൂർണ്ണ പരിഹാരം.", legacy: "നല്ല ജോലിയുടെ അടയാളം", years: "31+", yearsText: "വിശ്വാസത്തിന്റെ വർഷങ്ങൾ", factories: "6,000+", factoriesText: "പ്രവർത്തിക്കുന്ന ഫാക്ടറികൾ", machines: "100,000+", machinesText: "ശരിയാക്കിയ മെഷീനുകൾ", values: "ഞങ്ങളുടെ ചിന്തകൾ", val1: "നല്ല ജോലി", val2: "ടീം വർക്ക്", val3: "യഥാർത്ഥ പങ്കാളികൾ", solutions: "സേവനങ്ങൾ", sol1: "ക്രെയിൻ ജോലി", sol2: "റൂഫ് മെഷീനുകൾ", sol3: "ഫാക്ടറി ഓട്ടോമേഷൻ", vers: "എല്ലാ ജോലികളിലും മിടുക്ക്", versSub: "എല്ലാത്തരം ഫാക്ടറി ജോലികളിലും ഞങ്ങൾ സഹായിക്കുന്നു.", explore: "കൂടുതൽ അറിയുക", projects: "ഞങ്ങളുടെ ജോലികൾ", viewAll: "എല്ലാ ജോലികളും കാണുക", updates: "പുതിയ വാർത്തകൾ", readAll: "എല്ലാ വാർത്തകളും വായിക്കുക", reportTitle: "മെഷീൻ തകരാർ അറിയിക്കുക", fName: "ഫാക്ടറിയുടെ പേര്", fPhone: "ഫോൺ നമ്പർ", fIssue: "എന്താണ് പ്രശ്നം?", submit: "അയയ്ക്കുക", success: "അയച്ചു.", safetyTitle: "സുരക്ഷയ്ക്കും വേഗതയ്ക്കും വേണ്ടി നിർമ്മിച്ചത്", safetySub: "നിങ്ങളുടെ ഫാക്ടറി ഒരിക്കലും നിൽക്കാതിരിക്കാൻ ഞങ്ങൾ മികച്ച ഉപകരണങ്ങൾ ഉപയോഗിക്കുന്നു.", safeWork: "സുരക്ഷിത ജോലി", expertTeam: "വിദഗ്ദ്ധ ടീം", trustSupport: "വിശ്വസ്ത പിന്തുണ" },
+  gu: { hero: "ફેક્ટરી મશીનો અને સેવાઓ માટે સંપૂર્ણ ઉકેલ.", legacy: "સારા કામની ઓળખ", years: "31+", yearsText: "વિશ્વાસના વર્ષો", factories: "6,000+", factoriesText: "ચાલુ ફેક્ટરીઓ", machines: "100,000+", machinesText: "રિપેર કરેલ મશીનો", values: "અમારા વિચારો", val1: "સારું કામ", val2: "ટીમ વર્ક", val3: "સાચા સાથી", solutions: "સેવાઓ", sol1: "ક્રેનનું કામ", sol2: "છતની મશીનો", sol3: "ફેક્ટરી ઓટોમેશન", vers: "દરેક કામમાં નિપુણતા", versSub: "અમે તમામ પ્રકારના ફેક્ટરી કામમાં મદદ કરીએ છીએ.", explore: "વધુ જાણો", projects: "અમારા કામ", viewAll: "બધા કામ જુઓ", updates: "નવા સમાચાર", readAll: "બધા સમાચાર વાંચો", reportTitle: "મશીનની ખરાબી જણાવો", fName: "ફેક્ટરીનું નામ", fPhone: "ફોન નંબર", fIssue: "શું સમસ્યા છે?", submit: "મોકલો", success: "મોકલાઈ ગયું.", safetyTitle: "સુરક્ષા અને ગતિ માટે બનાવેલ", safetySub: "અમે શ્રેષ્ઠ સાધનોનો ઉપયોગ કરીએ છીએ જેથી તમારી ફેક્ટરી ક્યારેય અટકે નહીં.", safeWork: "સુરક્ષિત કામ", expertTeam: "નિષ્ણાત ટીમ", trustSupport: "વિશ્વસનીય સમર્થન" },
+  pa: { hero: "ਫੈਕਟਰੀ ਮਸ਼ੀਨਾਂ ਅਤੇ ਸੇਵਾਵਾਂ ਲਈ ਪੂਰਾ ਹੱਲ.", legacy: "ਚੰਗੇ ਕੰਮ ਦੀ ਪਛਾਣ", years: "31+", yearsText: "ਵਿਸ਼ਵਾਸ ਦੇ ਸਾਲ", factories: "6,000+", factoriesText: "ਚਾਲੂ ਫੈਕਟਰੀਆਂ", machines: "100,000+", machinesText: "ਠੀਕ ਕੀਤੀਆਂ ਮਸ਼ੀਨਾਂ", values: "ਸਾਡੇ ਵਿਚਾਰ", val1: "ਚੰਗਾ ਕੰਮ", val2: "ਟੀਮ ਵਰਕ", val3: "ਸੱਚੇ ਸਾਥੀ", solutions: "ਸੇਵਾਵਾਂ", sol1: "ਕਰੇਨ ਦਾ ਕੰਮ", sol2: "ਛੱਤ ਦੀਆਂ ਮਸ਼ੀਨਾਂ", sol3: "ਫੈਕਟਰੀ ਆਟੋਮੇਸ਼ਨ", vers: "ਹਰ ਕੰਮ ਵਿੱਚ ਮਾਹਰ", versSub: "ਅਸੀਂ ਹਰ ਤਰ੍ਹਾਂ ਦੇ ਫੈਕਟਰੀ ਕੰਮ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਾਂ.", explore: "ਹੋਰ ਜਾਣੋ", projects: "ਸਾਡੇ ਕੰਮ", viewAll: "ਸਾਰੇ ਕੰਮ ਦੇਖੋ", updates: "ਨਵੀਂ ਖ਼ਬਰ", readAll: "ਸਾਰੀਆਂ ਖ਼ਬਰਾਂ ਪੜ੍ਹੋ", reportTitle: "ਮਸ਼ੀਨ ਦੀ ਖਰਾਬੀ ਦੱਸੋ", fName: "ਫੈਕਟਰੀ ਦਾ ਨਾਂ", fPhone: "ਫੋਨ ਨੰਬਰ", fIssue: "ਕੀ ਸਮੱਸਿਆ ਹੈ?", submit: "ਭੇਜੋ", success: "ਭੇਜ ਦਿੱਤਾ ਗਿਆ.", safetyTitle: "ਸੁਰੱਖਿਆ ਅਤੇ ਗਤੀ ਲਈ ਬਣਾਇਆ ਗਿਆ", safetySub: "ਅਸੀਂ ਸਭ ਤੋਂ ਵਧੀਆ ਸੰਦਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਾਂ ਤਾਂ ਜੋ ਤੁਹਾਡੀ ਫੈਕਟਰੀ ਕਦੇ ਨਾ ਰੁਕੇ.", safeWork: "ਸੁਰੱਖਿਅਤ ਕੰਮ", expertTeam: "ਮਾਹਰ ਟੀਮ", trustSupport: "ਭਰੋਸੇਯੋਗ ਸਮਰਥਨ" },
+  bn: { hero: "কারখানার মেশিন এবং পরিষেবার জন্য সম্পূর্ণ সমাধান।", legacy: "ভালো কাজের পরিচয়", years: "31+", yearsText: "বিশ্বাসের বছর", factories: "6,000+", factoriesText: "চলমান কারখানা", machines: "100,000+", machinesText: "মেরামত করা মেশিন", values: "আমাদের চিন্তা", val1: "ভালো কাজ", val2: "টিম ওয়ার্ক", val3: "সত্যিকারের সঙ্গী", solutions: "পরিষেবা", sol1: "ক্রেনের কাজ", sol2: "ছাদের মেশিন", sol3: "কারখানা অটোমেশন", vers: "সব কাজে পারদর্শী", versSub: "আমরা সব ধরনের কারখানার কাজে সাহায্য করি।", explore: "আরও জানুন", projects: "আমাদের কাজ", viewAll: "সব কাজ দেখুন", updates: "নতুন খবর", readAll: "সব খবর পড়ুন", reportTitle: "মেশিনের সমস্যা জানান", fName: "কারখানার নাম", fPhone: "ফোন নম্বর", fIssue: "সমস্যা কী?", submit: "পাঠান", success: "পাঠানো হয়েছে।", safetyTitle: "নিরাপত্তা এবং গতির জন্য তৈরি", safetySub: "আপনার কারখানা যেন কখনও না থামে তার জন্য আমরা সেরা সরঞ্জাম ব্যবহার করি।", safeWork: "নিরাপদ কাজ", expertTeam: "বিশেষজ্ঞ দল", trustSupport: "বিশ্বস্ত সমর্থন" },
+  or: { hero: "କାରଖାନା ମେସିନ୍ ଏବଂ ସେବା ପାଇଁ ସମ୍ପୂର୍ଣ୍ଣ ସମାଧାନ.", legacy: "ଭଲ କାମର ପରିଚୟ", years: "31+", yearsText: "ବିଶ୍ୱାସର ବର୍ଷ", factories: "6,000+", factoriesText: "ଚାଲୁଥିବା କାରଖାନା", machines: "100,000+", machinesText: "ସଜଡା ଯାଇଥିବା ମେସିନ୍", values: "ଆମର ବିଚାର", val1: "ଭଲ କାମ", val2: "ଟିମ୍ ୱାର୍କ", val3: "ପ୍ରକୃତ ସାଥୀ", solutions: "ସେବା", sol1: "କ୍ରେନ୍ କାମ", sol2: "ଛାତ ମେସିନ୍", sol3: "କାରଖାନା ଅଟୋମେସନ୍", vers: "ସବୁ କାମରେ ପାରଙ୍ଗମ", versSub: "ଆମେ ସବୁ ପ୍ରକାର କାରଖାନା କାମରେ ସାହାଯ୍ୟ କରୁ.", explore: "ଅଧିକ ଜାଣନ୍ତୁ", projects: "ଆମର କାମ", viewAll: "ସବୁ କାମ ଦେଖନ୍ତୁ", updates: "ନୂଆ ଖବର", readAll: "ସବୁ ଖବର ପଢନ୍ତୁ", reportTitle: "ମେସିନ୍ ଖରାପ ଜଣାନ୍ତୁ", fName: "କାରଖାନା ନାମ", fPhone: "ଫୋନ୍ ନମ୍ବର", fIssue: "ସମସ୍ୟା କଣ?", submit: "ପଠାନ୍ତୁ", success: "ପଠାଗଲା.", safetyTitle: "ସୁରକ୍ଷା ଏବଂ ଗତି ପାଇଁ ନିର୍ମିତ", safetySub: "ଆପଣଙ୍କ କାରଖାନା ଯେପରି କେବେବି ବନ୍ଦ ନହୁଏ ସେଥିପାଇଁ ଆମେ ସର୍ବୋତ୍ତମ ଉପକରଣ ବ୍ୟବହାର କରୁ.", safeWork: "ସୁରକ୍ଷିତ କାମ", expertTeam: "ବିଶେଷଜ୍ଞ ଟିମ୍", trustSupport: "ବିଶ୍ୱସ୍ତ ସମର୍ଥନ" },
+  ur: { hero: "فیکٹری مشینوں اور خدمات کے لیے مکمل حل۔", legacy: "اچھے کام کی پہچان", years: "31+", yearsText: "اعتماد کے سال", factories: "6,000+", factoriesText: "چلتی فیکٹریاں", machines: "100,000+", machinesText: "ٹھیک کی گئی مشینیں", values: "ہمارے خیالات", val1: "اچھا کام", val2: "ٹیم ورک", val3: "سچے ساتھی", solutions: "خدمات", sol1: "کرین کا کام", sol2: "چھت کی مشینیں", sol3: "فیکٹری آٹومیشن", vers: "ہر کام میں ماہر", versSub: "ہم ہر طرح کے فیکٹری کے کام میں مدد کرتے ہیں۔", explore: "مزید جانیں", projects: "ہمارے کام", viewAll: "تمام کام دیکھیں", updates: "نئی خبریں", readAll: "تمام خبریں پڑھیں", reportTitle: "مشین کی خرابی بتائیں", fName: "فیکٹری کا نام", fPhone: "فون نمبر", fIssue: "کیا مسئلہ ہے؟", submit: "بھیجیں", success: "بھیج دیا گیا۔", safetyTitle: "حفاظت اور رفتار کے لیے تیار کردہ", safetySub: "ہم بہترین ٹولز کا استعمال کرتے ہیں تاکہ آپ کی فیکٹری کبھی نہ رکے۔", safeWork: "محفوظ کام", expertTeam: "ماہر ٹیم", trustSupport: "قابل اعتماد تعاون" },
+  as: { hero: "কাৰখানাৰ মেচিন আৰু সেৱাৰ বাবে সম্পূৰ্ণ সমাধান.", legacy: "ভাল কামৰ পৰিচয়", years: "31+", yearsText: "বিশ্বাসৰ বছৰ", factories: "6,000+", factoriesText: "চলি থকা কাৰখানা", machines: "100,000+", machinesText: "মেৰামতি কৰা মেচিন", values: "আমাৰ বিচাৰ", val1: "ভাল কাম", val2: "টিম ৱৰ্ক", val3: "প্ৰকৃত সংগী", solutions: "সেৱাসমূহ", sol1: "ক্ৰেনৰ কাম", sol2: "ছাদৰ মেচিন", sol3: "কাৰখানা অটোমেচন", vers: "সকলো কামতে পাৰ্গত", versSub: "আমি সকলো ধৰণৰ কাৰখানাৰ কামত সহায় কৰোঁ.", explore: "অধিক জানক", projects: "আমাৰ কাম", viewAll: "সকলো কাম চাওক", updates: "নতুন খবৰ", readAll: "সকলো খবৰ পঢ়ক", reportTitle: "মেচিনৰ বিজুতি জনাওক", fName: "কাৰখানাৰ নাম", fPhone: "ফোন নম্বৰ", fIssue: "সমস্যা কি?", submit: "পঠাওক", success: "পঠোৱা হ'ল.", safetyTitle: "নিৰাপত্তা আৰু গতিৰ বাবে নিৰ্মিত", safetySub: "আপোনাৰ কাৰখানা যাতে কেতিয়াও বন্ধ নহয় তাৰ বাবে আমি সৰ্বোত্তম সঁজুলি ব্যৱহাৰ কৰোঁ.", safeWork: "নিৰাপদ কাম", expertTeam: "বিশেষজ্ঞ দল", trustSupport: "বিশ্বস্ত সমৰ্থন" },
+  bho: { hero: "फैक्टरी मशीन अउरी सेवा खातिर पूरा समाधान।", legacy: "बढ़िया काम के पहचान", years: "31+", yearsText: "भरोसा के साल", factories: "6,000+", factoriesText: "चालू कारखाना", machines: "100,000+", machinesText: "ठीक कइल मशीन", values: "हमनी के बिचार", val1: "बढ़िया काम", val2: "टीम के काम", val3: "सच्चा साथी", solutions: "सेवा", sol1: "क्रेन के काम", sol2: "छत के मशीन", sol3: "फैक्टरी ऑटोमेशन", vers: "सब काम में माहिर", versSub: "हमनी के हर तरह के फैक्टरी काम में मदद करीले।", explore: "अउरी जानीं", projects: "हमनी के काम", viewAll: "सब काम देखीं", updates: "नया खबर", readAll: "सब खबर पढ़ीं", reportTitle: "मशीन के खराबी बताईं", fName: "फैक्टरी के नाम", fPhone: "फोन नंबर", fIssue: "का दिक्कत बा?", submit: "भेजीं", success: "भेज दिहल गइल।", safetyTitle: "सुरक्षा अउरी गति खातिर बनल", safetySub: "रउआ फैक्टरी कबो ना रुके, एकरा खातिर हमनी के सबसे नीमन औजार के इस्तेमाल करीले।", safeWork: "सुरक्षित काम", expertTeam: "विशेषज्ञ टीम", trustSupport: "भरोसेमंद समर्थन" }
 };
 
 const slideImages = [
@@ -55,14 +55,23 @@ export const Home = () => {
   const handleIncidentReport = async (e) => {
     e.preventDefault();
     try {
+      // 1. Strict Firestore Data Save
       await addDoc(collection(db, 'serviceRequests'), {
+        category: 'Quick Incident Report',
         ...formState,
         timestamp: new Date().toISOString(),
         status: 'Submitted'
       });
+      
+      // 2. Strict WhatsApp Lead Generation Logic
+      const waMessage = `*New Factory Machine Fault Report*\n\n*Factory:* ${formState.name}\n*Phone:* ${formState.phone}\n*Issue:* ${formState.issue}`;
+      
       setFormState({ name: '', phone: '', issue: '' });
       setStatus(t.success);
       setTimeout(() => setStatus(''), 4000);
+      
+      // 3. Trigger URL Redirect
+      window.open(`https://wa.me/919049994500?text=${encodeURIComponent(waMessage)}`, '_blank');
     } catch (err) {
       console.error(err);
       setStatus("Error saving record.");
@@ -72,7 +81,7 @@ export const Home = () => {
   return (
     <div className="w-full bg-gray-50 overflow-hidden font-sans text-gray-900">
       
-      {/* Desktop Hero Section: Image Slider */}
+      {/* 1. Desktop Hero Section: Image Slider */}
       <section className="hidden md:flex relative w-full h-[60vh] bg-[#0035A0] items-center px-12 overflow-hidden">
         <AnimatePresence initial={false}>
           <motion.img
@@ -104,7 +113,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Mobile Hero Section */}
+      {/* 2. Mobile Hero Section */}
       <section className="md:hidden flex flex-col pt-8 bg-white">
         <div className="px-4 mb-6">
           <h1 className="text-[32px] leading-tight font-bold text-gray-900">{t.hero}</h1>
@@ -118,7 +127,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Legacy & Stats Section */}
+      {/* 3. Legacy & Stats Section */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="hidden md:flex justify-between items-start gap-12">
@@ -173,7 +182,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* 4. Values Section */}
       <section className="py-12 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
@@ -209,7 +218,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Versatility & Solutions Section */}
+      {/* 5. Versatility & Solutions Section */}
       <section className="py-16 bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="mb-12">
@@ -252,7 +261,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* 6. Projects Section */}
       <section className="py-16 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="flex justify-between items-center mb-8">
@@ -280,7 +289,48 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Latest Updates & Quick Incident Report Section */}
+      {/* 7. NEW SECTION: Safety and Speed (Custom SVG Artwork / Doodles) */}
+      <section className="py-16 bg-[#0035A0] text-white relative overflow-hidden">
+         {/* Custom Background SVG Doodles */}
+         <div className="absolute left-0 top-0 opacity-10 transform -translate-x-1/4 -translate-y-1/4 pointer-events-none">
+            <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+               <circle cx="12" cy="12" r="10"></circle>
+               <path d="M12 2v20M2 12h20M12 6a6 6 0 1 0 0 12 6 6 0 1 0 0-12z"></path>
+            </svg>
+         </div>
+         <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4 pointer-events-none">
+            <svg width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+               <rect x="2" y="14" width="20" height="8"></rect>
+               <path d="M6 14V4h12v10M10 14V8h4v6"></path>
+            </svg>
+         </div>
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 className="text-3xl md:text-5xl font-black mb-6">{t.safetyTitle}</h2>
+            <p className="text-lg md:text-xl font-semibold opacity-90 max-w-3xl mx-auto mb-10">{t.safetySub}</p>
+            <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
+               <div className="flex flex-col items-center">
+                  <div className="bg-white/20 p-5 rounded-full mb-4 hover:scale-110 transition">
+                     <CheckSquare className="h-10 w-10 text-white" />
+                  </div>
+                  <span className="font-bold text-xl">{t.safeWork}</span>
+               </div>
+               <div className="flex flex-col items-center">
+                  <div className="bg-white/20 p-5 rounded-full mb-4 hover:scale-110 transition">
+                     <Users className="h-10 w-10 text-white" />
+                  </div>
+                  <span className="font-bold text-xl">{t.expertTeam}</span>
+               </div>
+               <div className="flex flex-col items-center">
+                  <div className="bg-white/20 p-5 rounded-full mb-4 hover:scale-110 transition">
+                     <Handshake className="h-10 w-10 text-white" />
+                  </div>
+                  <span className="font-bold text-xl">{t.trustSupport}</span>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* 8. Latest Updates & Quick Incident Report Section */}
       <section className="py-16 bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12">
            
@@ -306,7 +356,7 @@ export const Home = () => {
            </div>
 
            {/* Quick Incident Form */}
-           <div className="bg-gray-50 p-8 border border-gray-200">
+           <div className="bg-gray-50 p-8 border border-gray-200 shadow-sm">
              <h3 className="text-2xl font-bold mb-6 flex items-center text-[#0035A0]">
                 <AlertCircle className="h-6 w-6 mr-2" /> {t.reportTitle}
              </h3>
@@ -323,8 +373,8 @@ export const Home = () => {
                    <label className="block text-sm font-bold mb-2">{t.fIssue}</label>
                    <textarea required rows="3" value={formState.issue} onChange={(e) => setFormState({...formState, issue: e.target.value})} className="w-full p-3 border border-gray-300 outline-none focus:border-[#0035A0]"></textarea>
                 </div>
-                <button type="submit" className="bg-[#0035A0] text-white font-bold py-3 hover:bg-blue-800 transition text-lg mt-2 flex justify-center items-center">
-                   {t.submit}
+                <button type="submit" className="bg-[#0035A0] text-white font-bold py-4 hover:bg-blue-900 transition text-lg mt-2 flex justify-center items-center">
+                   {t.submit} <ArrowUpRight className="ml-2 h-6 w-6 stroke-[3]" />
                 </button>
                 {status && <p className="text-green-700 font-bold text-sm mt-2 text-center">{status}</p>}
              </form>

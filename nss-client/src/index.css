@@ -13,9 +13,58 @@ body {
   color: #111827;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.025em;
+}
+
+/* Accessibility Feature 1: Aggressive Dark Mode Overrides */
+html.dark body,
+html.dark * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #333333 !important;
+}
+
+/* Ensure images and media retain transparency and do not become black boxes */
+html.dark img,
+html.dark video,
+html.dark iframe {
+  background-color: transparent !important;
+}
+
+/* Force SVG icons to render in white */
+html.dark svg,
+html.dark svg * {
+  stroke: #ffffff !important;
+}
+
+/* Accessibility Feature 2: High Contrast */
+html.access-high-contrast {
+  filter: contrast(130%) saturate(120%);
+}
+
+/* Accessibility Feature 3: Large Text Scaling (Scales root rem units) */
+html.access-large-text {
+  font-size: 115% !important;
+}
+
+/* Accessibility Feature 4: Dyslexia-Friendly Readable Font */
+html.access-readable-font,
+html.access-readable-font * {
+  font-family: 'Verdana', 'Comic Sans MS', sans-serif !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.1em !important;
+}
+
+/* Accessibility Feature 5: Highlight Links */
+html.access-highlight-links a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 4px !important;
+  background-color: #ffeb3b !important;
+  color: #000000 !important;
 }

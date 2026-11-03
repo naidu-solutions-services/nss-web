@@ -7,6 +7,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { CookieBanner } from './components/ui/CookieBanner';
 import { FloatingChat } from './components/ui/FloatingChat';
+import { AccessibilityMenu } from './components/ui/AccessibilityMenu';
 
 // Public Pages
 import { Home } from './pages/public/Home';
@@ -78,7 +79,7 @@ export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="flex flex-col min-h-screen bg-white font-sans text-gray-900">
+        <div className="flex flex-col min-h-screen bg-white font-sans text-gray-900 transition-colors duration-300">
           <Navbar />
           
           <main className="flex-grow">
@@ -121,6 +122,7 @@ export default function App() {
           <Footer />
           <CookieBanner />
           <FloatingChat />
+          <AccessibilityMenu />
         </div>
       </Router>
     </AuthProvider>
